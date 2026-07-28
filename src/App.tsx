@@ -235,12 +235,12 @@ export default function App() {
       <header className="fixed top-2 sm:top-3 left-0 right-0 z-50 px-2 sm:px-4 max-w-7xl mx-auto">
         <nav className="cyber-panel-nav px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between">
           
-          {/* CLEAN SFN EMBLEM & BRAND HEADER */}
+          {/* STATIC CLEAN SFN EMBLEM & BRAND HEADER */}
           <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
             <img 
               src="/sfn_logo.png" 
               alt="SFN Fitness Emblem Logo" 
-              className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform duration-300" 
+              className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)]" 
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
@@ -460,11 +460,11 @@ export default function App() {
 
               {/* CLEAN EMBLEM DISPLAY */}
               <div className="my-3 sm:my-4 relative flex items-center justify-center">
-                <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl pointer-events-none group-hover:bg-[#74E600]/30 transition-all duration-300" />
+                <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl pointer-events-none" />
                 <img 
                   src="/sfn_logo.png" 
                   alt="SFN Fitness Official Emblem" 
-                  className="h-28 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-300"
+                  className="h-28 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)]"
                 />
               </div>
 
