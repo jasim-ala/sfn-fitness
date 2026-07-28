@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   Dumbbell, Flame, Shield, Zap, Award, Heart, Clock, Phone, Mail, MapPin, 
   MessageSquare, Languages, Check, ArrowRight, Sparkles, Trophy, 
-  Calendar, Star, ChevronRight, Menu, X, Activity, ShieldCheck, Camera, Image as ImageIcon, Upload
+  Calendar, Star, ChevronRight, Menu, X, Activity, ShieldCheck, Camera, Image as ImageIcon, Upload, ExternalLink
 } from "lucide-react";
 
 const translations = {
@@ -94,6 +94,7 @@ const translations = {
     locationLabel: "ADDRESS LOCATION",
     socialLabel: "INSTAGRAM PAGE",
     addressValue: "Tower A1, City Tower, Al Nuaimia 3, Ajman, UAE",
+    openMapBtn: "OPEN IN GOOGLE MAPS",
     chatNow: "START CHAT NOW",
     footerText: "© 2026 SFN FITNESS. ALL RIGHTS RESERVED."
   },
@@ -184,6 +185,7 @@ const translations = {
     locationLabel: "عنوان النادي",
     socialLabel: "إنستغرام النادي",
     addressValue: "برج A1، سيتي تاور، النعيمية 3، عجمان، الإمارات العربية المتحدة",
+    openMapBtn: "الفتح في خرائط جوجل",
     chatNow: "بدء التحدث الآن",
     footerText: "© 2026 SFN فيتنس. جميع الحقوق محفوظة."
   }
@@ -199,6 +201,7 @@ const packages = [
 ];
 
 const fallbackImg = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop";
+const googleMapsDirectUrl = "https://maps.google.com/?q=City+Tower+Al+Nuaimia+3+Ajman";
 
 export default function App() {
   const [lang, setLang] = useState<'en' | 'ar'>('en');
@@ -228,7 +231,7 @@ export default function App() {
         <div className="absolute top-10 left-1/4 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#74E600]/10 blur-[100px] sm:blur-[160px]" />
       </div>
 
-      {/* MOBILE-RESPONSIVE NAVBAR */}
+      {/* NAVBAR */}
       <header className="fixed top-2 sm:top-3 left-0 right-0 z-50 px-2 sm:px-4 max-w-7xl mx-auto">
         <nav className="cyber-panel-nav px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between">
           
@@ -866,7 +869,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* CONTACT & LOCATION */}
+      {/* CONTACT & LOCATION MAP */}
       <section id="contact" className="py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
@@ -933,7 +936,7 @@ export default function App() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] shrink-0 rounded-md">
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
+              <div className="flex-1">
                 <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.locationLabel}</span>
                 <span className="text-xs font-bold text-slate-200 uppercase">{t.addressValue}</span>
               </div>
@@ -956,22 +959,39 @@ export default function App() {
 
           </div>
 
-          {/* Google Maps Embed */}
-          <div className="lg:col-span-7 cyber-card p-2 sm:p-3 border-[#74E600]/40 overflow-hidden min-h-[280px] sm:min-h-[380px] flex flex-col bg-[#0a120a]">
-            <div className="w-full flex-1 overflow-hidden relative min-h-[260px] sm:min-h-[360px] border border-white/10 rounded-md">
+          {/* Clean Google Maps Container with Mobile Navigation Link */}
+          <div className="lg:col-span-7 cyber-card p-3 border-[#74E600]/50 overflow-hidden min-h-[340px] sm:min-h-[420px] flex flex-col bg-[#081008] relative">
+            
+            {/* Header bar over map */}
+            <div className="flex items-center justify-between p-3 bg-black/90 border-b border-white/10 text-tech text-xs mb-2 rounded-t-md">
+              <div className="flex items-center gap-2 text-[#74E600] font-bold">
+                <MapPin className="w-4 h-4" />
+                <span>TOWER A1 // CITY TOWER, AJMAN</span>
+              </div>
+              <a 
+                href={googleMapsDirectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cyber-badge px-3 py-1 text-[10px] font-extrabold flex items-center gap-1 hover:bg-[#74E600] hover:text-black transition-all"
+              >
+                <span>{t.openMapBtn}</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Embedded Google Map */}
+            <div className="w-full flex-1 overflow-hidden relative min-h-[280px] sm:min-h-[340px] border border-white/10 rounded-b-md">
               <iframe
                 title="SFN Fitness Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.227393437142!2d55.44062141501314!3d25.393845983805335!2m3!1f0!2f0!3f0!3m2!1f1024!2f1024!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f583569dc1e7d%3A0xc0c40eecabdc6b3!2sCity%20Tower%2C%20Ajman!5e0!3m2!1sen!2sae!4v1716912345678!5m2!1sen!2sae"
+                src="https://maps.google.com/maps?q=City%20Tower%20Al%20Nuaimia%203%20Ajman&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
-                style={{ border: 0, minHeight: '260px' }}
-                allowFullScreen={false}
+                style={{ border: 0, minHeight: '280px', width: '100%' }}
+                allowFullScreen={true}
                 loading="lazy"
-                className="w-full h-full filter contrast-125 brightness-[80%] invert-[90%] hue-rotate-[90deg] grayscale-[30%]"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full rounded-b-md"
               />
-              <div className="absolute top-3 left-3 bg-black/90 border border-[#74E600] px-3 py-1.5 font-tech text-[10px] sm:text-xs font-bold text-[#74E600] flex items-center gap-2 shadow-xl rounded-sm">
-                <span className="w-2 h-2 bg-[#74E600] animate-ping" /> TOWER A1 // CITY TOWER, AJMAN
-              </div>
             </div>
           </div>
 
