@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import {
-  Dumbbell, Flame, Shield, Zap, Award, Heart, Clock, Phone, Mail, MapPin,
-  MessageSquare, Languages, Check, ArrowRight, Sparkles, Trophy,
+import { 
+  Dumbbell, Flame, Shield, Zap, Award, Heart, Clock, Phone, Mail, MapPin, 
+  MessageSquare, Languages, Check, ArrowRight, Sparkles, Trophy, 
   Calendar, Star, ChevronRight, Menu, X, Activity, ShieldCheck, Camera, Image as ImageIcon, Upload, ExternalLink
 } from "lucide-react";
 
@@ -19,7 +19,7 @@ const translations = {
     coachBadge: "HEAD COACH: SHARAFU",
     equipmentBadge: "PREMIUM GYM EQUIPMENT",
     challengeBadge: "3-MONTH BELLY REMOVAL CHALLENGE ACTIVE",
-
+    
     // Nav
     navTraining: "FACILITIES",
     navTiming: "SCHEDULE",
@@ -110,7 +110,7 @@ const translations = {
     coachBadge: "المدرب الرئيسي: شرفو",
     equipmentBadge: "معدات رياضية احترافية",
     challengeBadge: "تحدي إزالة الكرش لمدة 3 أشهر نشط الآن",
-
+    
     // Nav
     navTraining: "المرافق والخدمات",
     navTiming: "جدول المواعيد",
@@ -225,7 +225,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen bg-[#040604] bg-cyber-grid text-slate-100 ${isRtl ? 'dir-rtl text-right' : 'dir-ltr text-left'}`} dir={isRtl ? 'rtl' : 'ltr'}>
-
+      
       {/* AMBIENT RADIAL LIGHTS */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-10 left-1/4 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#74E600]/10 blur-[100px] sm:blur-[160px]" />
@@ -234,25 +234,34 @@ export default function App() {
       {/* NAVBAR */}
       <header className="fixed top-2 sm:top-3 left-0 right-0 z-50 px-2 sm:px-4 max-w-7xl mx-auto">
         <nav className="cyber-panel-nav px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between">
-
-          {/* OFFICIAL SFN LOGO & BRAND */}
+          
+          {/* ANIMATED SFN EMBLEM & BRAND HEADER */}
           <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
-            <img
-              src="/sfn_logo.png"
-              alt="SFN Fitness Official Logo"
-              className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform"
+            <motion.img 
+              src="/sfn_logo.png" 
+              alt="SFN Fitness Emblem Logo" 
+              className="h-8 sm:h-11 md:h-12 w-auto object-contain cursor-pointer" 
+              animate={{ 
+                scale: [1, 1.06, 1],
+                filter: [
+                  "drop-shadow(0 0 6px rgba(116,230,0,0.5))", 
+                  "drop-shadow(0 0 14px rgba(116,230,0,0.9))", 
+                  "drop-shadow(0 0 6px rgba(116,230,0,0.5))"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              whileHover={{ scale: 1.12, rotate: [0, -4, 4, 0] }}
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span
-                  className="font-sfn-brand text-base sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
-                >
-                  {t.brand}
-                </span>
+                <img 
+                  src="/sfn_text_logo.png" 
+                  alt="SFN FITNESS" 
+                  className="h-5 sm:h-7 md:h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.4)]"
+                />
                 <span className="w-2 h-2 rounded-full bg-[#74E600] animate-pulse" />
               </div>
-              <div className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-widest text-[#74E600] font-tech font-bold -mt-1 uppercase">
+              <div className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-widest text-[#74E600] font-tech font-bold -mt-0.5 uppercase">
                 <span>{t.status}</span>
               </div>
             </div>
@@ -286,7 +295,7 @@ export default function App() {
               <Languages className="w-3.5 h-3.5" />
               <span>{lang === 'en' ? 'العربية // AR' : 'ENGLISH // EN'}</span>
             </button>
-
+            
             <a
               href={whatsappLink}
               target="_blank"
@@ -313,9 +322,9 @@ export default function App() {
         {/* Mobile Dropdown Drawer */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
               exit={{ opacity: 0, y: -10 }}
               className="sm:hidden mt-2 cyber-card p-4 border border-[#74E600]/40 flex flex-col gap-2.5 font-tech tracking-widest text-center shadow-2xl bg-[#040604] border-t-2"
             >
@@ -334,7 +343,7 @@ export default function App() {
               <button onClick={() => scrollToSection("contact")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] flex items-center justify-center gap-2 text-xs">
                 <MapPin className="w-4 h-4 text-[#74E600]" /> {t.navContact}
               </button>
-              <a
+              <a 
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -350,12 +359,12 @@ export default function App() {
 
       {/* HERO SECTION */}
       <section id="hero" className="relative pt-24 pb-16 sm:pt-36 sm:pb-28 px-3 sm:px-4 max-w-7xl mx-auto z-10 min-h-[85vh] flex flex-col justify-center">
-
+        
         {/* Full Hero Background Image */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-2xl sm:rounded-3xl border border-[#74E600]/40 shadow-2xl bg-[#091209]">
-          <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop"
-            alt="SFN Fitness Gym Floor Background"
+          <img 
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop" 
+            alt="SFN Fitness Gym Floor Background" 
             className="w-full h-full object-cover filter brightness-105 contrast-110 opacity-80"
             loading="eager"
             onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
@@ -365,12 +374,12 @@ export default function App() {
         </div>
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-
+          
           {/* Main Hero Content */}
           <div className="lg:col-span-7 flex flex-col items-start text-left pl-1 sm:pl-4">
-
+            
             {/* Badges */}
-            <motion.div
+            <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
@@ -385,7 +394,7 @@ export default function App() {
             </motion.div>
 
             {/* Title with SFN Brand Font */}
-            <motion.h1
+            <motion.h1 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -398,7 +407,7 @@ export default function App() {
               </span>
             </motion.h1>
 
-            <motion.p
+            <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -408,13 +417,13 @@ export default function App() {
             </motion.p>
 
             {/* Action Buttons */}
-            <motion.div
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full"
             >
-              <button
+              <button 
                 onClick={() => scrollToSection("pricing")}
                 className="cyber-button px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center shadow-xl shadow-[#74E600]/40 w-full sm:w-auto"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
@@ -422,8 +431,8 @@ export default function App() {
                 <span>{t.joinNow}</span>
                 <ArrowRight className={`w-4 h-4 sm:w-5 sm:h-5 ${isRtl ? 'rotate-180' : ''}`} />
               </button>
-
-              <button
+              
+              <button 
                 onClick={() => scrollToSection("services")}
                 className="cyber-button-outline px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center bg-black/80 shadow-lg w-full sm:w-auto"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
@@ -434,7 +443,7 @@ export default function App() {
             </motion.div>
 
             {/* Belly Challenge Banner */}
-            <motion.div
+            <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -446,35 +455,59 @@ export default function App() {
 
           </div>
 
-          {/* Right Side Visual Logo & Schedule Panel */}
-          <motion.div
+          {/* Right Side Visual Animated Logo & Schedule Panel */}
+          <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 pr-1 sm:pr-4"
           >
-            {/* Official Logo Display Card */}
+            {/* Official Animated Logo Display Card */}
             <div className="cyber-card p-6 sm:p-8 border-[#74E600]/60 bg-black/90 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#74E600] text-black font-tech text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                 OFFICIAL GYM // AJMAN
               </div>
 
-              <div className="my-3 sm:my-4 relative">
-                <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl group-hover:bg-[#74E600]/30 transition-all" />
-                <img
-                  src="/sfn_logo.png"
-                  alt="SFN Fitness Official Emblem"
-                  className="h-24 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-500"
-                  loading="eager"
+              {/* DYNAMIC ANIMATED EMBLEM DISPLAY */}
+              <div className="my-4 sm:my-6 relative flex items-center justify-center">
+                
+                {/* Outer Rotating Cyber Energy Ring */}
+                <motion.div 
+                  className="absolute -inset-6 rounded-full border-2 border-dashed border-[#74E600]/60 pointer-events-none"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Inner Pulsing Neon Radial Aura */}
+                <motion.div 
+                  className="absolute -inset-4 bg-[#74E600]/25 rounded-full blur-xl pointer-events-none"
+                  animate={{ scale: [0.95, 1.25, 0.95], opacity: [0.35, 0.85, 0.35] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Animated Green Emblem Logo */}
+                <motion.img 
+                  src="/sfn_logo.png" 
+                  alt="SFN Fitness Official Animated Emblem" 
+                  className="h-28 sm:h-48 w-auto object-contain relative z-10"
+                  animate={{ 
+                    y: [0, -8, 0],
+                    filter: [
+                      "drop-shadow(0 0 12px rgba(116,230,0,0.6))", 
+                      "drop-shadow(0 0 28px rgba(116,230,0,0.95))", 
+                      "drop-shadow(0 0 12px rgba(116,230,0,0.6))"
+                    ] 
+                  }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ scale: 1.1, rotate: [0, -6, 6, 0] }}
                 />
               </div>
 
-              <h3
-                className="font-sfn-brand text-xl sm:text-3xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
-              >
-                SFN FITNESS
-              </h3>
+              <img 
+                src="/sfn_text_logo.png" 
+                alt="SFN FITNESS" 
+                className="h-7 sm:h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(116,230,0,0.5)] mb-1"
+              />
               <p className="text-[10px] sm:text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
                 CITY TOWER A1 // AL NUAIMIA 3, AJMAN
               </p>
@@ -498,7 +531,7 @@ export default function App() {
             {/* Quick Ladies Notice */}
             <div className="cyber-card p-3.5 sm:p-4 border-pink-500/50 bg-black/90 flex items-center justify-between font-tech text-xs text-slate-200 shadow-xl">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-pink-400 shrink-0" />
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-pink-400 shrink-0" /> 
                 <span className="font-bold text-[10px] sm:text-xs">LADIES HOURS: <span className="text-pink-400">12:00 PM - 3:30 PM</span></span>
               </div>
               <span className="text-pink-400 font-extrabold uppercase bg-pink-500/10 px-2 py-0.5 text-[9px] sm:text-[10px]">100% PRIVATE</span>
@@ -515,7 +548,7 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 flex items-center gap-2">
               <span className="w-2 h-2 bg-[#74E600]" /> // OUR FACILITIES
             </span>
-            <h2
+            <h2 
               className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white"
               style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
@@ -528,13 +561,13 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
-
+          
           {/* Feature 1: Strength & Free Weights */}
           <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0a120a]">
             <div className="absolute inset-0 z-0">
-              <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop"
-                alt="Strength & Free Weights Equipment"
+              <img 
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop" 
+                alt="Strength & Free Weights Equipment" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
@@ -548,7 +581,7 @@ export default function App() {
                   <Dumbbell className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s1Sub}</span>
-                <h3
+                <h3 
                   className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
@@ -566,9 +599,9 @@ export default function App() {
           {/* Feature 2: Personal Training by Coach Sharafu */}
           <div className="relative overflow-hidden cyber-card-glow group flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0f170f]">
             <div className="absolute inset-0 z-0">
-              <img
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=75&w=800&auto=format&fit=crop"
-                alt="Personal Training & Coaching"
+              <img 
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=75&w=800&auto=format&fit=crop" 
+                alt="Personal Training & Coaching" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
@@ -582,7 +615,7 @@ export default function App() {
                   <Trophy className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-amber-400 uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s2Sub}</span>
-                <h3
+                <h3 
                   className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
@@ -600,9 +633,9 @@ export default function App() {
           {/* Feature 3: Cardio & Endurance */}
           <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0a120a]">
             <div className="absolute inset-0 z-0">
-              <img
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=75&w=800&auto=format&fit=crop"
-                alt="Cardio Equipment & Treadmills"
+              <img 
+                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=75&w=800&auto=format&fit=crop" 
+                alt="Cardio Equipment & Treadmills" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
@@ -616,7 +649,7 @@ export default function App() {
                   <Flame className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s3Sub}</span>
-                <h3
+                <h3 
                   className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
@@ -636,9 +669,9 @@ export default function App() {
         {/* Featured Card: Exclusive Ladies Gym */}
         <div className="relative overflow-hidden cyber-card border-pink-500/60 group shadow-xl bg-[#120a10]">
           <div className="absolute inset-0 z-0">
-            <img
-              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=75&w=800&auto=format&fit=crop"
-              alt="Ladies Private Gym Studio"
+            <img 
+              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=75&w=800&auto=format&fit=crop" 
+              alt="Ladies Private Gym Studio" 
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-110"
               loading="lazy"
               onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
@@ -651,7 +684,7 @@ export default function App() {
               <div className="flex items-center gap-2 text-pink-400 font-tech text-xs font-bold uppercase tracking-widest mb-2 drop-shadow-md">
                 <Shield className="w-4 h-4" /> <span>{t.s4Sub}</span>
               </div>
-              <h3
+              <h3 
                 className="font-sfn-brand text-2xl sm:text-4xl font-black text-white uppercase tracking-wider mb-3 sm:mb-4 drop-shadow-lg"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
@@ -665,7 +698,7 @@ export default function App() {
                 <span className="block text-[11px] sm:text-xs text-pink-300 font-bold uppercase">DAILY LADIES HOURS</span>
                 <span className="block text-lg sm:text-xl font-black text-pink-400">12:00 PM - 03:30 PM</span>
               </div>
-              <button
+              <button 
                 onClick={() => scrollToSection("timings")}
                 className="px-6 py-3.5 sm:py-4 bg-pink-600 hover:bg-pink-500 text-white font-tech font-bold text-xs uppercase tracking-wider transition-colors w-full sm:w-auto shadow-lg shadow-pink-600/40 text-center rounded-md"
               >
@@ -684,7 +717,7 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
               // TIMING SCHEDULE
             </span>
-            <h2
+            <h2 
               className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
               style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
@@ -696,12 +729,12 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-
+            
             {/* Mixed Hours */}
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-[#74E600]/40 hover:border-[#74E600] transition-colors bg-[#081008]">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[#74E600] bg-black/90 shadow-lg shadow-[#74E600]/40 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-[#74E600]/60 animate-spin" style={{ animationDuration: '30s' }} />
-                <motion.div
+                <motion.div 
                   animate={{ rotate: 360 }}
                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 >
@@ -721,7 +754,7 @@ export default function App() {
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-pink-500/60 shadow-xl shadow-pink-500/10 bg-gradient-to-b from-black via-pink-950/30 to-black">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-pink-500 bg-black/90 shadow-lg shadow-pink-500/50 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-pink-400/60 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
-                <motion.div
+                <motion.div 
                   animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
                   transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -740,7 +773,7 @@ export default function App() {
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-amber-400/40 hover:border-amber-400 transition-colors bg-[#100e08]">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-400 bg-black/90 shadow-lg shadow-amber-400/30 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-amber-400/60 animate-spin" style={{ animationDuration: '40s' }} />
-                <motion.div
+                <motion.div 
                   animate={{ y: [0, -6, 0], rotate: [-4, 4, -4] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -770,7 +803,7 @@ export default function App() {
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // MEDIA GALLERY
           </span>
-          <h2
+          <h2 
             className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
@@ -784,8 +817,8 @@ export default function App() {
         {/* Clean Structured Placeholders for User's Original Photos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {[1, 2, 3, 4].map((index) => (
-            <div
-              key={index}
+            <div 
+              key={index} 
               className="relative h-52 sm:h-72 border-2 border-dashed border-[#74E600]/40 bg-black/70 hover:border-[#74E600] transition-colors p-5 sm:p-6 flex flex-col items-center justify-center text-center group cursor-pointer rounded-xl"
             >
               <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
@@ -812,7 +845,7 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
               // MEMBERSHIP RATES
             </span>
-            <h2
+            <h2 
               className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
               style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
@@ -830,12 +863,13 @@ export default function App() {
               const isFeatured = pkg.featured;
 
               return (
-                <div
+                <div 
                   key={pkg.id}
-                  className={`p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${isFeatured
-                      ? 'cyber-card-glow transform lg:-translate-y-3 shadow-2xl shadow-[#74E600]/20 bg-[#0f1a0f]'
+                  className={`p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+                    isFeatured 
+                      ? 'cyber-card-glow transform lg:-translate-y-3 shadow-2xl shadow-[#74E600]/20 bg-[#0f1a0f]' 
                       : 'cyber-card border-[#74E600]/30 hover:border-[#74E600] bg-[#0a120a]'
-                    }`}
+                  }`}
                 >
                   {isFeatured && (
                     <div className="mb-4 bg-[#74E600] text-black py-1 px-4 font-tech text-[10px] sm:text-xs font-black uppercase tracking-widest text-center shadow-md shadow-[#74E600]/40 rounded-sm">
@@ -849,7 +883,7 @@ export default function App() {
                       <span className="text-slate-400 uppercase">ACCESS: FULL</span>
                     </div>
 
-                    <h3
+                    <h3 
                       className="font-sfn-brand text-lg sm:text-xl font-black text-white uppercase tracking-wide mb-2"
                       style={{ fontFamily: "'Orbitron', sans-serif" }}
                     >
@@ -889,14 +923,15 @@ export default function App() {
                     </ul>
                   </div>
 
-                  <a
+                  <a 
                     href={`https://wa.me/971567772004?text=I%20want%20to%20subscribe%20to%20the%20${pkg.code}%20package%20(${pkg.price}%20AED)%20at%20SFN%20Fitness!`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full py-3.5 sm:py-4 text-center text-xs sm:text-sm font-bold uppercase tracking-widest transition-all block ${isFeatured
-                        ? 'cyber-button'
+                    className={`w-full py-3.5 sm:py-4 text-center text-xs sm:text-sm font-bold uppercase tracking-widest transition-all block ${
+                      isFeatured 
+                        ? 'cyber-button' 
                         : 'cyber-button-outline'
-                      }`}
+                    }`}
                     style={{ fontFamily: "'Orbitron', sans-serif" }}
                   >
                     {t.choosePlan}
@@ -920,7 +955,7 @@ export default function App() {
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // TELEMETRY & LOCATION
           </span>
-          <h2
+          <h2 
             className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
@@ -932,12 +967,12 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-
+          
           {/* Contact Details */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-3.5 sm:gap-4 font-tech">
-
-            <a
-              href="tel:067160931"
+            
+            <a 
+              href="tel:067160931" 
               className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600] bg-[#0a120a]"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0 rounded-md">
@@ -949,8 +984,8 @@ export default function App() {
               </div>
             </a>
 
-            <a
-              href={whatsappLink}
+            <a 
+              href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
               className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 border-[#74E600] bg-[#74E600]/10 group"
@@ -967,8 +1002,8 @@ export default function App() {
               </span>
             </a>
 
-            <a
-              href="mailto:sfn.fitness.ae@gmail.com"
+            <a 
+              href="mailto:sfn.fitness.ae@gmail.com" 
               className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600] bg-[#0a120a]"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0 rounded-md">
@@ -990,8 +1025,8 @@ export default function App() {
               </div>
             </div>
 
-            <a
-              href="https://instagram.com/sfn.gym"
+            <a 
+              href="https://instagram.com/sfn.gym" 
               target="_blank"
               rel="noopener noreferrer"
               className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-pink-500 bg-[#0a120a]"
@@ -1009,14 +1044,14 @@ export default function App() {
 
           {/* Clean Google Maps Container with Mobile Navigation Link */}
           <div className="lg:col-span-7 cyber-card p-3 border-[#74E600]/50 overflow-hidden min-h-[340px] sm:min-h-[420px] flex flex-col bg-[#081008] relative">
-
+            
             {/* Header bar over map */}
             <div className="flex items-center justify-between p-3 bg-black/90 border-b border-white/10 text-tech text-xs mb-2 rounded-t-md">
               <div className="flex items-center gap-2 text-[#74E600] font-bold">
                 <MapPin className="w-4 h-4" />
                 <span>TOWER A1 // CITY TOWER, AJMAN</span>
               </div>
-              <a
+              <a 
                 href={googleMapsDirectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1050,8 +1085,14 @@ export default function App() {
       <footer className="py-8 sm:py-12 border-t border-[#74E600]/30 bg-black text-slate-500 font-tech text-center text-xs tracking-widest">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 font-black text-[#74E600]">
-            <img src="/sfn_logo.png" alt="SFN Fitness Logo" className="h-7 sm:h-8 w-auto object-contain" />
-            <span className="font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>{t.brand}</span>
+            <motion.img 
+              src="/sfn_logo.png" 
+              alt="SFN Fitness Logo" 
+              className="h-7 sm:h-8 w-auto object-contain" 
+              animate={{ scale: [1, 1.08, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <img src="/sfn_text_logo.png" alt="SFN FITNESS" className="h-5 sm:h-6 w-auto object-contain" />
           </div>
           <p className="text-[10px] sm:text-xs">{t.footerText}</p>
           <div className="flex items-center gap-6 font-bold text-slate-400 text-[10px] sm:text-xs">
