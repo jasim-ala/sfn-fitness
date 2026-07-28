@@ -235,22 +235,12 @@ export default function App() {
       <header className="fixed top-2 sm:top-3 left-0 right-0 z-50 px-2 sm:px-4 max-w-7xl mx-auto">
         <nav className="cyber-panel-nav px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between">
           
-          {/* ANIMATED SFN EMBLEM & BRAND HEADER */}
+          {/* CLEAN SFN EMBLEM & BRAND HEADER */}
           <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
-            <motion.img 
+            <img 
               src="/sfn_logo.png" 
               alt="SFN Fitness Emblem Logo" 
-              className="h-8 sm:h-11 md:h-12 w-auto object-contain cursor-pointer" 
-              animate={{ 
-                scale: [1, 1.06, 1],
-                filter: [
-                  "drop-shadow(0 0 6px rgba(116,230,0,0.5))", 
-                  "drop-shadow(0 0 14px rgba(116,230,0,0.9))", 
-                  "drop-shadow(0 0 6px rgba(116,230,0,0.5))"
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={{ scale: 1.12, rotate: [0, -4, 4, 0] }}
+              className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform duration-300" 
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
@@ -455,51 +445,26 @@ export default function App() {
 
           </div>
 
-          {/* Right Side Visual Animated Logo & Schedule Panel */}
+          {/* Right Side Visual Logo & Schedule Panel */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 pr-1 sm:pr-4"
           >
-            {/* Official Animated Logo Display Card */}
+            {/* Official Logo Display Card */}
             <div className="cyber-card p-6 sm:p-8 border-[#74E600]/60 bg-black/90 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#74E600] text-black font-tech text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                 OFFICIAL GYM // AJMAN
               </div>
 
-              {/* DYNAMIC ANIMATED EMBLEM DISPLAY */}
-              <div className="my-4 sm:my-6 relative flex items-center justify-center">
-                
-                {/* Outer Rotating Cyber Energy Ring */}
-                <motion.div 
-                  className="absolute -inset-6 rounded-full border-2 border-dashed border-[#74E600]/60 pointer-events-none"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                />
-
-                {/* Inner Pulsing Neon Radial Aura */}
-                <motion.div 
-                  className="absolute -inset-4 bg-[#74E600]/25 rounded-full blur-xl pointer-events-none"
-                  animate={{ scale: [0.95, 1.25, 0.95], opacity: [0.35, 0.85, 0.35] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                />
-
-                {/* Animated Green Emblem Logo */}
-                <motion.img 
+              {/* CLEAN EMBLEM DISPLAY */}
+              <div className="my-3 sm:my-4 relative flex items-center justify-center">
+                <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl pointer-events-none group-hover:bg-[#74E600]/30 transition-all duration-300" />
+                <img 
                   src="/sfn_logo.png" 
-                  alt="SFN Fitness Official Animated Emblem" 
-                  className="h-28 sm:h-48 w-auto object-contain relative z-10"
-                  animate={{ 
-                    y: [0, -8, 0],
-                    filter: [
-                      "drop-shadow(0 0 12px rgba(116,230,0,0.6))", 
-                      "drop-shadow(0 0 28px rgba(116,230,0,0.95))", 
-                      "drop-shadow(0 0 12px rgba(116,230,0,0.6))"
-                    ] 
-                  }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                  whileHover={{ scale: 1.1, rotate: [0, -6, 6, 0] }}
+                  alt="SFN Fitness Official Emblem" 
+                  className="h-28 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
@@ -1085,12 +1050,10 @@ export default function App() {
       <footer className="py-8 sm:py-12 border-t border-[#74E600]/30 bg-black text-slate-500 font-tech text-center text-xs tracking-widest">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 font-black text-[#74E600]">
-            <motion.img 
+            <img 
               src="/sfn_logo.png" 
               alt="SFN Fitness Logo" 
-              className="h-7 sm:h-8 w-auto object-contain" 
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(116,230,0,0.4)]" 
             />
             <img src="/sfn_text_logo.png" alt="SFN FITNESS" className="h-5 sm:h-6 w-auto object-contain" />
           </div>
