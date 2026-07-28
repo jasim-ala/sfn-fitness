@@ -198,7 +198,7 @@ const packages = [
   { id: "year", price: "900", titleKey: "oneYear", descKey: "yearDesc", featured: false, code: "1_YEAR" },
 ];
 
-const fallbackImg = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop";
+const fallbackImg = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop";
 
 export default function App() {
   const [lang, setLang] = useState<'en' | 'ar'>('en');
@@ -225,8 +225,7 @@ export default function App() {
       
       {/* AMBIENT RADIAL LIGHTS */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-10 left-1/4 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] rounded-full bg-[#74E600]/10 blur-[120px] sm:blur-[160px]" />
-        <div className="absolute top-1/2 right-5 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full bg-[#74E600]/06 blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-10 left-1/4 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#74E600]/10 blur-[100px] sm:blur-[160px]" />
       </div>
 
       {/* MOBILE-RESPONSIVE NAVBAR */}
@@ -238,11 +237,11 @@ export default function App() {
             <img 
               src="/sfn_logo.png" 
               alt="SFN Fitness Official Logo" 
-              className="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform" 
+              className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform" 
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-lg sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon">
+                <span className="text-base sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon">
                   {t.brand}
                 </span>
                 <span className="w-2 h-2 rounded-full bg-[#74E600] animate-pulse" />
@@ -311,21 +310,21 @@ export default function App() {
               initial={{ opacity: 0, y: -10 }} 
               animate={{ opacity: 1, y: 0 }} 
               exit={{ opacity: 0, y: -10 }}
-              className="sm:hidden mt-2 cyber-card p-5 border border-[#74E600]/40 flex flex-col gap-3 font-tech tracking-widest text-center shadow-2xl bg-black/95 backdrop-blur-2xl"
+              className="sm:hidden mt-2 cyber-card p-4 border border-[#74E600]/40 flex flex-col gap-2.5 font-tech tracking-widest text-center shadow-2xl bg-[#040604] border-t-2"
             >
-              <button onClick={() => scrollToSection("services")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-sm">
+              <button onClick={() => scrollToSection("services")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-xs">
                 <Dumbbell className="w-4 h-4 text-[#74E600]" /> {t.navTraining}
               </button>
-              <button onClick={() => scrollToSection("timings")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-sm">
+              <button onClick={() => scrollToSection("timings")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-xs">
                 <Clock className="w-4 h-4 text-[#74E600]" /> {t.navTiming}
               </button>
-              <button onClick={() => scrollToSection("gallery")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-sm">
+              <button onClick={() => scrollToSection("gallery")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-xs">
                 <ImageIcon className="w-4 h-4 text-[#74E600]" /> {t.navGallery}
               </button>
-              <button onClick={() => scrollToSection("pricing")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-sm">
+              <button onClick={() => scrollToSection("pricing")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10 flex items-center justify-center gap-2 text-xs">
                 <Trophy className="w-4 h-4 text-[#74E600]" /> {t.navPricing}
               </button>
-              <button onClick={() => scrollToSection("contact")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] flex items-center justify-center gap-2 text-sm">
+              <button onClick={() => scrollToSection("contact")} className="py-2.5 font-bold text-slate-200 hover:text-[#74E600] flex items-center justify-center gap-2 text-xs">
                 <MapPin className="w-4 h-4 text-[#74E600]" /> {t.navContact}
               </button>
               <a 
@@ -342,14 +341,15 @@ export default function App() {
       </header>
 
       {/* HERO SECTION */}
-      <section id="hero" className="relative pt-24 pb-16 sm:pt-36 sm:pb-28 px-3 sm:px-4 max-w-7xl mx-auto z-10 min-h-[90vh] flex flex-col justify-center">
+      <section id="hero" className="relative pt-24 pb-16 sm:pt-36 sm:pb-28 px-3 sm:px-4 max-w-7xl mx-auto z-10 min-h-[85vh] flex flex-col justify-center">
         
         {/* Full Hero Background Image */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-2xl sm:rounded-3xl border border-[#74E600]/40 shadow-2xl">
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-2xl sm:rounded-3xl border border-[#74E600]/40 shadow-2xl bg-[#091209]">
           <img 
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop" 
             alt="SFN Fitness Gym Floor Background" 
             className="w-full h-full object-cover filter brightness-105 contrast-110 opacity-80"
+            loading="eager"
             onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-transparent" />
@@ -371,7 +371,7 @@ export default function App() {
               <span className="cyber-badge px-3 py-1 text-[11px] sm:text-xs font-bold flex items-center gap-1.5 shadow-md">
                 <Trophy className="w-3.5 h-3.5 text-[#74E600]" /> {t.coachBadge}
               </span>
-              <span className="px-3 py-1 bg-black/70 border border-white/30 text-slate-100 font-bold text-[11px] sm:text-xs flex items-center gap-1.5 backdrop-blur-md">
+              <span className="px-3 py-1 bg-black/70 border border-white/30 text-slate-100 font-bold text-[11px] sm:text-xs flex items-center gap-1.5 backdrop-blur-md rounded-md">
                 <Dumbbell className="w-3.5 h-3.5 text-[#74E600]" /> {t.equipmentBadge}
               </span>
             </motion.div>
@@ -381,7 +381,7 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[5.6rem] font-black tracking-tight leading-[0.95] uppercase mb-4 sm:mb-6 drop-shadow-2xl"
+              className="text-3xl xs:text-4xl sm:text-7xl md:text-8xl lg:text-[5.6rem] font-black tracking-tight leading-[0.95] uppercase mb-4 sm:mb-6 drop-shadow-2xl"
             >
               <span className="block text-white drop-shadow-lg">{t.heroTitle1}</span>
               <span className="block text-[#74E600] text-glow-neon">
@@ -393,7 +393,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-100 max-w-2xl text-sm sm:text-lg md:text-xl font-medium leading-relaxed mb-6 sm:mb-8 bg-black/70 backdrop-blur-md p-3.5 sm:p-4 rounded-xl border border-white/20 shadow-2xl"
+              className="text-slate-100 max-w-2xl text-xs sm:text-lg md:text-xl font-medium leading-relaxed mb-6 sm:mb-8 bg-black/80 p-3.5 sm:p-4 rounded-xl border border-white/20 shadow-2xl"
             >
               {t.heroSub}
             </motion.p>
@@ -407,7 +407,7 @@ export default function App() {
             >
               <button 
                 onClick={() => scrollToSection("pricing")}
-                className="cyber-button px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-lg flex items-center gap-3 justify-center shadow-xl shadow-[#74E600]/40 w-full sm:w-auto"
+                className="cyber-button px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center shadow-xl shadow-[#74E600]/40 w-full sm:w-auto"
               >
                 <span>{t.joinNow}</span>
                 <ArrowRight className={`w-4 h-4 sm:w-5 sm:h-5 ${isRtl ? 'rotate-180' : ''}`} />
@@ -415,7 +415,7 @@ export default function App() {
               
               <button 
                 onClick={() => scrollToSection("services")}
-                className="cyber-button-outline px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-lg flex items-center gap-3 justify-center backdrop-blur-md bg-black/60 shadow-lg w-full sm:w-auto"
+                className="cyber-button-outline px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center bg-black/80 shadow-lg w-full sm:w-auto"
               >
                 <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5 text-[#74E600]" />
                 <span>{t.virtualTour}</span>
@@ -427,7 +427,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-6 sm:mt-8 w-full sm:w-auto cyber-card px-4 sm:px-6 py-3 sm:py-4 border-amber-400/60 text-amber-300 font-extrabold text-xs sm:text-base flex items-center gap-3 shadow-xl shadow-amber-500/20 backdrop-blur-md bg-black/80"
+              className="mt-6 sm:mt-8 w-full sm:w-auto cyber-card px-4 sm:px-6 py-3 sm:py-4 border-amber-400/60 text-amber-300 font-extrabold text-xs sm:text-base flex items-center gap-3 shadow-xl shadow-amber-500/20 bg-black/90"
             >
               <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 shrink-0 animate-bounce" />
               <span>🔥 {t.challengeBadge}</span>
@@ -435,7 +435,7 @@ export default function App() {
 
           </div>
 
-          {/* Right Side Visual Glassmorphic Logo & Schedule Panel */}
+          {/* Right Side Visual Logo & Schedule Panel */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -443,7 +443,7 @@ export default function App() {
             className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 pr-1 sm:pr-4"
           >
             {/* Official Logo Display Card */}
-            <div className="cyber-card p-6 sm:p-8 border-[#74E600]/60 bg-black/85 backdrop-blur-xl flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
+            <div className="cyber-card p-6 sm:p-8 border-[#74E600]/60 bg-black/90 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#74E600] text-black font-tech text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                 OFFICIAL GYM // AJMAN
               </div>
@@ -453,18 +453,19 @@ export default function App() {
                 <img 
                   src="/sfn_logo.png" 
                   alt="SFN Fitness Official Emblem" 
-                  className="h-28 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-500"
+                  className="h-24 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-500"
+                  loading="eager"
                 />
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon">
+              <h3 className="text-lg sm:text-2xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon">
                 SFN FITNESS
               </h3>
-              <p className="text-[11px] sm:text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
+              <p className="text-[10px] sm:text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
                 CITY TOWER A1 // AL NUAIMIA 3, AJMAN
               </p>
 
-              <div className="w-full pt-3 sm:pt-4 border-t border-white/10 space-y-2 font-tech text-[11px] sm:text-xs">
+              <div className="w-full pt-3 sm:pt-4 border-t border-white/10 space-y-2 font-tech text-[10px] sm:text-xs">
                 <div className="p-2 sm:p-2.5 bg-white/5 border border-white/10 flex items-center justify-between rounded">
                   <span className="text-slate-300 font-bold uppercase">MORNING MIXED:</span>
                   <span className="text-[#74E600] font-extrabold">05:30 AM - 12:00 PM</span>
@@ -481,12 +482,12 @@ export default function App() {
             </div>
 
             {/* Quick Ladies Notice */}
-            <div className="cyber-card p-3.5 sm:p-4 border-pink-500/50 bg-black/85 backdrop-blur-md flex items-center justify-between font-tech text-xs text-slate-200 shadow-xl">
+            <div className="cyber-card p-3.5 sm:p-4 border-pink-500/50 bg-black/90 flex items-center justify-between font-tech text-xs text-slate-200 shadow-xl">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-pink-400 shrink-0" /> 
-                <span className="font-bold text-[11px] sm:text-xs">LADIES HOURS: <span className="text-pink-400">12:00 PM - 3:30 PM DAILY</span></span>
+                <span className="font-bold text-[10px] sm:text-xs">LADIES HOURS: <span className="text-pink-400">12:00 PM - 3:30 PM</span></span>
               </div>
-              <span className="text-pink-400 font-extrabold uppercase bg-pink-500/10 px-2 py-0.5 text-[10px]">100% PRIVATE</span>
+              <span className="text-pink-400 font-extrabold uppercase bg-pink-500/10 px-2 py-0.5 text-[9px] sm:text-[10px]">100% PRIVATE</span>
             </div>
           </motion.div>
 
@@ -504,7 +505,7 @@ export default function App() {
               {t.servicesHeader}
             </h2>
           </div>
-          <p className="text-slate-400 text-sm sm:text-base max-w-lg">
+          <p className="text-slate-400 text-xs sm:text-base max-w-lg">
             {t.servicesSub}
           </p>
         </div>
@@ -512,12 +513,13 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
           
           {/* Feature 1: Strength & Free Weights */}
-          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[380px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl">
+          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0a120a]">
             <div className="absolute inset-0 z-0">
               <img 
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop" 
                 alt="Strength & Free Weights Equipment" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -530,9 +532,9 @@ export default function App() {
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s1Sub}</span>
                 <h3 className="text-xl sm:text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s1Title}</h3>
-                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3 sm:p-3.5 border border-white/10">{t.s1Desc}</p>
+                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s1Desc}</p>
               </div>
-              <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/60 backdrop-blur-sm px-3 py-2">
+              <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/80 px-3 py-2 rounded-md">
                 <span>HEAVY IRON & SQUAT RACKS</span>
                 <ChevronRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />
               </div>
@@ -540,12 +542,13 @@ export default function App() {
           </div>
 
           {/* Feature 2: Personal Training by Coach Sharafu */}
-          <div className="relative overflow-hidden cyber-card-glow group flex flex-col justify-between min-h-[380px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl">
+          <div className="relative overflow-hidden cyber-card-glow group flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0f170f]">
             <div className="absolute inset-0 z-0">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=75&w=800&auto=format&fit=crop" 
                 alt="Personal Training & Coaching" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -558,9 +561,9 @@ export default function App() {
                 </div>
                 <span className="text-xs font-tech text-amber-400 uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s2Sub}</span>
                 <h3 className="text-xl sm:text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s2Title}</h3>
-                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3 sm:p-3.5 border border-white/10">{t.s2Desc}</p>
+                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s2Desc}</p>
               </div>
-              <div className="pt-3 sm:pt-4 border-t border-amber-400/30 flex items-center justify-between font-tech text-xs font-extrabold text-amber-300 bg-black/60 backdrop-blur-sm px-3 py-2">
+              <div className="pt-3 sm:pt-4 border-t border-amber-400/30 flex items-center justify-between font-tech text-xs font-extrabold text-amber-300 bg-black/80 px-3 py-2 rounded-md">
                 <span>1-ON-1 TAILORED COACHING</span>
                 <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
               </div>
@@ -568,12 +571,13 @@ export default function App() {
           </div>
 
           {/* Feature 3: Cardio & Endurance */}
-          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[380px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl">
+          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[360px] sm:min-h-[440px] p-6 sm:p-8 shadow-xl bg-[#0a120a]">
             <div className="absolute inset-0 z-0">
               <img 
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1200&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=75&w=800&auto=format&fit=crop" 
                 alt="Cardio Equipment & Treadmills" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -586,9 +590,9 @@ export default function App() {
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s3Sub}</span>
                 <h3 className="text-xl sm:text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s3Title}</h3>
-                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3 sm:p-3.5 border border-white/10">{t.s3Desc}</p>
+                <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s3Desc}</p>
               </div>
-              <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/60 backdrop-blur-sm px-3 py-2">
+              <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/80 px-3 py-2 rounded-md">
                 <span>TREADMILLS & FAT BURN</span>
                 <ChevronRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />
               </div>
@@ -598,12 +602,13 @@ export default function App() {
         </div>
 
         {/* Featured Card: Exclusive Ladies Gym */}
-        <div className="relative overflow-hidden cyber-card border-pink-500/60 group shadow-xl">
+        <div className="relative overflow-hidden cyber-card border-pink-500/60 group shadow-xl bg-[#120a10]">
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop" 
+              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=75&w=800&auto=format&fit=crop" 
               alt="Ladies Private Gym Studio" 
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-110"
+              loading="lazy"
               onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-black/30" />
@@ -615,17 +620,17 @@ export default function App() {
                 <Shield className="w-4 h-4" /> <span>{t.s4Sub}</span>
               </div>
               <h3 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mb-3 sm:mb-4 drop-shadow-lg">{t.s4Title}</h3>
-              <p className="text-slate-100 text-sm sm:text-lg font-medium leading-relaxed bg-black/60 backdrop-blur-sm p-3.5 sm:p-4 border border-pink-500/20">{t.s4Desc}</p>
+              <p className="text-slate-100 text-xs sm:text-lg font-medium leading-relaxed bg-black/80 p-3.5 sm:p-4 border border-pink-500/20 rounded-md">{t.s4Desc}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full lg:w-auto shrink-0">
-              <div className="p-3.5 sm:p-4 bg-black/70 border border-pink-500/50 text-center font-tech backdrop-blur-md shadow-lg">
+              <div className="p-3.5 sm:p-4 bg-black/80 border border-pink-500/50 text-center font-tech shadow-lg rounded-md">
                 <span className="block text-[11px] sm:text-xs text-pink-300 font-bold uppercase">DAILY LADIES HOURS</span>
                 <span className="block text-lg sm:text-xl font-black text-pink-400">12:00 PM - 03:30 PM</span>
               </div>
               <button 
                 onClick={() => scrollToSection("timings")}
-                className="px-6 py-3.5 sm:py-4 bg-pink-600 hover:bg-pink-500 text-white font-tech font-bold text-xs uppercase tracking-wider transition-colors w-full sm:w-auto shadow-lg shadow-pink-600/40 text-center"
+                className="px-6 py-3.5 sm:py-4 bg-pink-600 hover:bg-pink-500 text-white font-tech font-bold text-xs uppercase tracking-wider transition-colors w-full sm:w-auto shadow-lg shadow-pink-600/40 text-center rounded-md"
               >
                 VIEW SCHEDULE
               </button>
@@ -645,16 +650,16 @@ export default function App() {
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3 sm:mb-4">
               {t.timingHeader}
             </h2>
-            <p className="text-slate-400 text-sm sm:text-lg max-w-2xl mx-auto">
+            <p className="text-slate-400 text-xs sm:text-lg max-w-2xl mx-auto">
               {t.timingSub}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
             
-            {/* Mixed Hours (Orbital Spinning Clock Icon) */}
-            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-[#74E600]/40 hover:border-[#74E600] transition-colors">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[#74E600] bg-black/80 shadow-lg shadow-[#74E600]/40 flex items-center justify-center relative mb-6">
+            {/* Mixed Hours */}
+            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-[#74E600]/40 hover:border-[#74E600] transition-colors bg-[#081008]">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[#74E600] bg-black/90 shadow-lg shadow-[#74E600]/40 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-[#74E600]/60 animate-spin" style={{ animationDuration: '30s' }} />
                 <motion.div 
                   animate={{ rotate: 360 }}
@@ -672,9 +677,9 @@ export default function App() {
               <p className="text-xs text-slate-400 leading-relaxed">{t.mixedDesc}</p>
             </div>
 
-            {/* Ladies Exclusive Time (Pulsing Heartbeat Icon) */}
-            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-pink-500/60 shadow-xl shadow-pink-500/10 bg-gradient-to-b from-black via-pink-950/20 to-black">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-pink-500 bg-black/80 shadow-lg shadow-pink-500/50 flex items-center justify-center relative mb-6">
+            {/* Ladies Exclusive Time */}
+            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-pink-500/60 shadow-xl shadow-pink-500/10 bg-gradient-to-b from-black via-pink-950/30 to-black">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-pink-500 bg-black/90 shadow-lg shadow-pink-500/50 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-pink-400/60 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
                 <motion.div 
                   animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
@@ -691,9 +696,9 @@ export default function App() {
               <p className="text-xs text-slate-300 leading-relaxed">{t.ladiesDesc}</p>
             </div>
 
-            {/* VIP Personal Training (Floating Hover & Shimmer Trophy Icon) */}
-            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-amber-400/40 hover:border-amber-400 transition-colors">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-400 bg-black/80 shadow-lg shadow-amber-400/30 flex items-center justify-center relative mb-6">
+            {/* VIP Personal Training */}
+            <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-amber-400/40 hover:border-amber-400 transition-colors bg-[#100e08]">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-400 bg-black/90 shadow-lg shadow-amber-400/30 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-amber-400/60 animate-spin" style={{ animationDuration: '40s' }} />
                 <motion.div 
                   animate={{ y: [0, -6, 0], rotate: [-4, 4, -4] }}
@@ -712,7 +717,7 @@ export default function App() {
 
           </div>
 
-          <div className="cyber-card p-4 sm:p-5 border-[#74E600]/30 flex items-center justify-center gap-2.5 sm:gap-3 font-tech text-xs sm:text-sm font-bold text-[#74E600] uppercase tracking-wider text-center">
+          <div className="cyber-card p-4 sm:p-5 border-[#74E600]/30 flex items-center justify-center gap-2.5 sm:gap-3 font-tech text-xs sm:text-sm font-bold text-[#74E600] uppercase tracking-wider text-center bg-[#081008]">
             <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#74E600] shrink-0" />
             <span>{t.dailyNote}</span>
           </div>
@@ -728,7 +733,7 @@ export default function App() {
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3 sm:mb-4">
             {t.galleryHeader}
           </h2>
-          <p className="text-slate-400 text-sm sm:text-lg">
+          <p className="text-slate-400 text-xs sm:text-lg">
             {t.gallerySub}
           </p>
         </div>
@@ -738,18 +743,18 @@ export default function App() {
           {[1, 2, 3, 4].map((index) => (
             <div 
               key={index} 
-              className="relative h-60 sm:h-72 border-2 border-dashed border-[#74E600]/40 bg-black/60 hover:border-[#74E600] transition-colors p-5 sm:p-6 flex flex-col items-center justify-center text-center group cursor-pointer"
+              className="relative h-52 sm:h-72 border-2 border-dashed border-[#74E600]/40 bg-black/70 hover:border-[#74E600] transition-colors p-5 sm:p-6 flex flex-col items-center justify-center text-center group cursor-pointer rounded-xl"
             >
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                <Camera className="w-7 h-7 sm:w-8 sm:h-8" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                <Camera className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <span className="font-tech text-[11px] sm:text-xs font-bold text-[#74E600] uppercase tracking-widest mb-1">
+              <span className="font-tech text-[10px] sm:text-xs font-bold text-[#74E600] uppercase tracking-widest mb-1">
                 PHOTO SLOT 0{index}
               </span>
-              <span className="font-extrabold text-xs sm:text-sm text-white uppercase tracking-wide mb-1.5 sm:mb-2">
+              <span className="font-extrabold text-xs sm:text-sm text-white uppercase tracking-wide mb-1 sm:mb-2">
                 {t.uploadNotice}
               </span>
-              <p className="text-[11px] sm:text-xs text-slate-400 font-tech">
+              <p className="text-[10px] sm:text-xs text-slate-400 font-tech">
                 {t.uploadDesc}
               </p>
             </div>
@@ -767,7 +772,7 @@ export default function App() {
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3 sm:mb-4">
               {t.pricingHeader}
             </h2>
-            <p className="text-slate-400 text-sm sm:text-lg">
+            <p className="text-slate-400 text-xs sm:text-lg">
               {t.pricingSub}
             </p>
           </div>
@@ -783,12 +788,12 @@ export default function App() {
                   key={pkg.id}
                   className={`p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
                     isFeatured 
-                      ? 'cyber-card-glow transform lg:-translate-y-3 shadow-2xl shadow-[#74E600]/20' 
-                      : 'cyber-card border-[#74E600]/30 hover:border-[#74E600]'
+                      ? 'cyber-card-glow transform lg:-translate-y-3 shadow-2xl shadow-[#74E600]/20 bg-[#0f1a0f]' 
+                      : 'cyber-card border-[#74E600]/30 hover:border-[#74E600] bg-[#0a120a]'
                   }`}
                 >
                   {isFeatured && (
-                    <div className="mb-4 bg-[#74E600] text-black py-1 px-4 font-tech text-[11px] sm:text-xs font-black uppercase tracking-widest text-center shadow-md shadow-[#74E600]/40">
+                    <div className="mb-4 bg-[#74E600] text-black py-1 px-4 font-tech text-[10px] sm:text-xs font-black uppercase tracking-widest text-center shadow-md shadow-[#74E600]/40 rounded-sm">
                       ★ {t.popularTag} ★
                     </div>
                   )}
@@ -806,7 +811,7 @@ export default function App() {
                       {desc}
                     </p>
 
-                    <div className="py-4 sm:py-5 bg-black/70 border border-[#74E600]/30 px-4 sm:px-5 mb-6 sm:mb-8 flex items-baseline justify-between">
+                    <div className="py-4 sm:py-5 bg-black/90 border border-[#74E600]/30 px-4 sm:px-5 mb-6 sm:mb-8 flex items-baseline justify-between rounded-md">
                       <div>
                         <span className="text-4xl sm:text-5xl font-tech font-extrabold text-white tracking-tight">{pkg.price}</span>
                         <span className="text-xs sm:text-sm font-bold text-[#74E600] ml-2 font-tech">{t.currency}</span>
@@ -828,7 +833,7 @@ export default function App() {
                         <span>TRAINER ORIENTATION ON FLOOR</span>
                       </li>
                       {isFeatured && (
-                        <li className="flex items-center gap-2.5 sm:gap-3 font-extrabold text-amber-300 bg-amber-400/10 p-2 border border-amber-400/30 text-xs">
+                        <li className="flex items-center gap-2.5 sm:gap-3 font-extrabold text-amber-300 bg-amber-400/10 p-2 border border-amber-400/30 text-xs rounded-sm">
                           <Flame className="w-4 h-4 text-amber-400 shrink-0" />
                           <span>🔥 3-MONTH BELLY REMOVAL CHALLENGE!</span>
                         </li>
@@ -854,7 +859,7 @@ export default function App() {
           </div>
 
           <div className="mt-12 sm:mt-16 text-center font-tech px-2">
-            <p className="text-amber-400 text-sm sm:text-lg font-extrabold tracking-widest text-glow-neon">
+            <p className="text-amber-400 text-xs sm:text-lg font-extrabold tracking-widest text-glow-neon">
               {t.couplePromo}
             </p>
           </div>
@@ -870,7 +875,7 @@ export default function App() {
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3 sm:mb-4">
             {t.contactHeader}
           </h2>
-          <p className="text-slate-400 text-sm sm:text-lg">
+          <p className="text-slate-400 text-xs sm:text-lg">
             {t.contactSub}
           </p>
         </div>
@@ -882,14 +887,14 @@ export default function App() {
             
             <a 
               href="tel:067160931" 
-              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600]"
+              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600] bg-[#0a120a]"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0 rounded-md">
                 <Phone className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>
-                <span className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.phoneLabel}</span>
-                <span className="text-base sm:text-lg font-black text-white group-hover:text-[#74E600] transition-colors">06 716 0931</span>
+                <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.phoneLabel}</span>
+                <span className="text-sm sm:text-lg font-black text-white group-hover:text-[#74E600] transition-colors">06 716 0931</span>
               </div>
             </a>
 
@@ -899,37 +904,37 @@ export default function App() {
               rel="noopener noreferrer"
               className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 border-[#74E600] bg-[#74E600]/10 group"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600] flex items-center justify-center text-black font-black shrink-0 shadow-lg shadow-[#74E600]/40">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600] flex items-center justify-center text-black font-black shrink-0 shadow-lg shadow-[#74E600]/40 rounded-md">
                 <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 fill-black" />
               </div>
               <div className="flex-1">
-                <span className="text-[11px] sm:text-xs text-[#74E600] font-extrabold uppercase tracking-widest block">{t.whatsappLabel}</span>
-                <span className="text-base sm:text-lg font-black text-white">+971 56 777 2004</span>
+                <span className="text-[10px] sm:text-xs text-[#74E600] font-extrabold uppercase tracking-widest block">{t.whatsappLabel}</span>
+                <span className="text-sm sm:text-lg font-black text-white">+971 56 777 2004</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-extrabold bg-[#74E600] text-black px-2 py-0.5 sm:px-2.5 sm:py-1 uppercase">
+              <span className="text-[9px] sm:text-[10px] font-extrabold bg-[#74E600] text-black px-2 py-0.5 sm:px-2.5 sm:py-1 uppercase rounded-sm">
                 24/7 LIVE
               </span>
             </a>
 
             <a 
               href="mailto:sfn.fitness.ae@gmail.com" 
-              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600]"
+              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-[#74E600] bg-[#0a120a]"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0 rounded-md">
                 <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>
-                <span className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.emailLabel}</span>
+                <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.emailLabel}</span>
                 <span className="text-xs sm:text-sm font-bold text-white break-all">sfn.fitness.ae@gmail.com</span>
               </div>
             </a>
 
-            <div className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] shrink-0">
+            <div className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 bg-[#0a120a]">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] shrink-0 rounded-md">
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>
-                <span className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.locationLabel}</span>
+                <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.locationLabel}</span>
                 <span className="text-xs font-bold text-slate-200 uppercase">{t.addressValue}</span>
               </div>
             </div>
@@ -938,33 +943,33 @@ export default function App() {
               href="https://instagram.com/sfn.gym" 
               target="_blank"
               rel="noopener noreferrer"
-              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-pink-500"
+              className="cyber-card p-4 sm:p-5 flex items-center gap-3.5 sm:gap-4 group hover:border-pink-500 bg-[#0a120a]"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 text-white flex items-center justify-center font-black shrink-0 text-sm sm:text-base">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 text-white flex items-center justify-center font-black shrink-0 text-sm sm:text-base rounded-md">
                 @
               </div>
               <div>
-                <span className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.socialLabel}</span>
-                <span className="text-base sm:text-lg font-black text-white group-hover:text-pink-400 transition-colors">@SFN.GYM</span>
+                <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.socialLabel}</span>
+                <span className="text-sm sm:text-lg font-black text-white group-hover:text-pink-400 transition-colors">@SFN.GYM</span>
               </div>
             </a>
 
           </div>
 
           {/* Google Maps Embed */}
-          <div className="lg:col-span-7 cyber-card p-2 sm:p-3 border-[#74E600]/40 overflow-hidden min-h-[300px] sm:min-h-[380px] flex flex-col">
-            <div className="w-full flex-1 overflow-hidden relative min-h-[280px] sm:min-h-[360px] border border-white/10">
+          <div className="lg:col-span-7 cyber-card p-2 sm:p-3 border-[#74E600]/40 overflow-hidden min-h-[280px] sm:min-h-[380px] flex flex-col bg-[#0a120a]">
+            <div className="w-full flex-1 overflow-hidden relative min-h-[260px] sm:min-h-[360px] border border-white/10 rounded-md">
               <iframe
                 title="SFN Fitness Location Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.227393437142!2d55.44062141501314!3d25.393845983805335!2m3!1f0!2f0!3f0!3m2!1f1024!2f1024!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f583569dc1e7d%3A0xc0c40eecabdc6b3!2sCity%20Tower%2C%20Ajman!5e0!3m2!1sen!2sae!4v1716912345678!5m2!1sen!2sae"
                 width="100%"
                 height="100%"
-                style={{ border: 0, minHeight: '280px' }}
+                style={{ border: 0, minHeight: '260px' }}
                 allowFullScreen={false}
                 loading="lazy"
                 className="w-full h-full filter contrast-125 brightness-[80%] invert-[90%] hue-rotate-[90deg] grayscale-[30%]"
               />
-              <div className="absolute top-3 left-3 bg-black/90 border border-[#74E600] px-3 py-1.5 font-tech text-[10px] sm:text-xs font-bold text-[#74E600] flex items-center gap-2 shadow-xl">
+              <div className="absolute top-3 left-3 bg-black/90 border border-[#74E600] px-3 py-1.5 font-tech text-[10px] sm:text-xs font-bold text-[#74E600] flex items-center gap-2 shadow-xl rounded-sm">
                 <span className="w-2 h-2 bg-[#74E600] animate-ping" /> TOWER A1 // CITY TOWER, AJMAN
               </div>
             </div>
@@ -980,8 +985,8 @@ export default function App() {
             <img src="/sfn_logo.png" alt="SFN Fitness Logo" className="h-7 sm:h-8 w-auto object-contain" />
             <span>{t.brand}</span>
           </div>
-          <p className="text-[11px] sm:text-xs">{t.footerText}</p>
-          <div className="flex items-center gap-6 font-bold text-slate-400 text-[11px] sm:text-xs">
+          <p className="text-[10px] sm:text-xs">{t.footerText}</p>
+          <div className="flex items-center gap-6 font-bold text-slate-400 text-[10px] sm:text-xs">
             <button onClick={() => scrollToSection("hero")} className="hover:text-[#74E600] uppercase">TOP [↑]</button>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-[#74E600] uppercase">SUPPORT [💬]</a>
           </div>
