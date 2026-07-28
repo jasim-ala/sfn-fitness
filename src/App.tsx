@@ -9,7 +9,7 @@ import {
 const translations = {
   en: {
     brand: "SFN FITNESS",
-    status: "OPEN NOW // AJMAN-UAE",
+    status: "AJMAN - UAE",
     heroTitle1: "THE PEAK OF",
     heroTitle2: "GYM FITNESS",
     heroSub: "Premier athletic training and fitness hub in the heart of Ajman. Equipped with top-tier strength machines, heavy free weights, exclusive ladies' hours, and expert personal training by Coach Sharafu.",
@@ -100,7 +100,7 @@ const translations = {
   },
   ar: {
     brand: "SFN فيتنس",
-    status: "مفتوح الآن // عجمان - الإمارات",
+    status: "عجمان - الإمارات",
     heroTitle1: "قمة اللياقة",
     heroTitle2: "والبناء البدني",
     heroSub: "المركز الرياضي والأفضل للتدريب في قلب عجمان. مجهز بأحدث أجهزة القوة، الأوزان الحرة، فترات خاصة بالسيدات، وإشراف مباشر من الكابتن شرفو.",
@@ -244,7 +244,10 @@ export default function App() {
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-sfn-brand text-base sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon">
+                <span 
+                  className="font-sfn-brand text-base sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
                   {t.brand}
                 </span>
                 <span className="w-2 h-2 rounded-full bg-[#74E600] animate-pulse" />
@@ -289,6 +292,7 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               className="cyber-button px-4 lg:px-5 py-2 text-xs flex items-center gap-2"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
               <MessageSquare className="w-4 h-4 fill-black text-black" />
               <span>{t.whatsappBtn}</span>
@@ -335,6 +339,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cyber-button py-3 text-center block mt-2 text-xs"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
                 💬 {t.whatsappBtn}
               </a>
@@ -385,6 +390,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-sfn-brand text-3xl xs:text-4xl sm:text-7xl md:text-8xl lg:text-[5.6rem] font-black tracking-wider leading-[0.95] uppercase mb-4 sm:mb-6 drop-shadow-2xl"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
               <span className="block text-white drop-shadow-lg">{t.heroTitle1}</span>
               <span className="block text-[#74E600] text-glow-neon">
@@ -411,6 +417,7 @@ export default function App() {
               <button 
                 onClick={() => scrollToSection("pricing")}
                 className="cyber-button px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center shadow-xl shadow-[#74E600]/40 w-full sm:w-auto"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
                 <span>{t.joinNow}</span>
                 <ArrowRight className={`w-4 h-4 sm:w-5 sm:h-5 ${isRtl ? 'rotate-180' : ''}`} />
@@ -419,6 +426,7 @@ export default function App() {
               <button 
                 onClick={() => scrollToSection("services")}
                 className="cyber-button-outline px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center bg-black/80 shadow-lg w-full sm:w-auto"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
                 <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5 text-[#74E600]" />
                 <span>{t.virtualTour}</span>
@@ -433,7 +441,7 @@ export default function App() {
               className="mt-6 sm:mt-8 w-full sm:w-auto cyber-card px-4 sm:px-6 py-3 sm:py-4 border-amber-400/60 text-amber-300 font-extrabold text-xs sm:text-base flex items-center gap-3 shadow-xl shadow-amber-500/20 bg-black/90"
             >
               <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 shrink-0 animate-bounce" />
-              <span className="font-sfn-brand">🔥 {t.challengeBadge}</span>
+              <span className="font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>🔥 {t.challengeBadge}</span>
             </motion.div>
 
           </div>
@@ -461,7 +469,10 @@ export default function App() {
                 />
               </div>
 
-              <h3 className="font-sfn-brand text-xl sm:text-3xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon">
+              <h3 
+                className="font-sfn-brand text-xl sm:text-3xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
                 SFN FITNESS
               </h3>
               <p className="text-[10px] sm:text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
@@ -504,7 +515,10 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 flex items-center gap-2">
               <span className="w-2 h-2 bg-[#74E600]" /> // OUR FACILITIES
             </span>
-            <h2 className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white">
+            <h2 
+              className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
               {t.servicesHeader}
             </h2>
           </div>
@@ -534,7 +548,12 @@ export default function App() {
                   <Dumbbell className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s1Sub}</span>
-                <h3 className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s1Title}</h3>
+                <h3 
+                  className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {t.s1Title}
+                </h3>
                 <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s1Desc}</p>
               </div>
               <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/80 px-3 py-2 rounded-md">
@@ -563,7 +582,12 @@ export default function App() {
                   <Trophy className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-amber-400 uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s2Sub}</span>
-                <h3 className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s2Title}</h3>
+                <h3 
+                  className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {t.s2Title}
+                </h3>
                 <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s2Desc}</p>
               </div>
               <div className="pt-3 sm:pt-4 border-t border-amber-400/30 flex items-center justify-between font-tech text-xs font-extrabold text-amber-300 bg-black/80 px-3 py-2 rounded-md">
@@ -592,7 +616,12 @@ export default function App() {
                   <Flame className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s3Sub}</span>
-                <h3 className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s3Title}</h3>
+                <h3 
+                  className="font-sfn-brand text-lg sm:text-xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {t.s3Title}
+                </h3>
                 <p className="text-slate-100 text-xs sm:text-sm font-medium leading-relaxed mb-6 bg-black/80 p-3 sm:p-3.5 border border-white/10 rounded-md">{t.s3Desc}</p>
               </div>
               <div className="pt-3 sm:pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/80 px-3 py-2 rounded-md">
@@ -622,7 +651,12 @@ export default function App() {
               <div className="flex items-center gap-2 text-pink-400 font-tech text-xs font-bold uppercase tracking-widest mb-2 drop-shadow-md">
                 <Shield className="w-4 h-4" /> <span>{t.s4Sub}</span>
               </div>
-              <h3 className="font-sfn-brand text-2xl sm:text-4xl font-black text-white uppercase tracking-wider mb-3 sm:mb-4 drop-shadow-lg">{t.s4Title}</h3>
+              <h3 
+                className="font-sfn-brand text-2xl sm:text-4xl font-black text-white uppercase tracking-wider mb-3 sm:mb-4 drop-shadow-lg"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
+                {t.s4Title}
+              </h3>
               <p className="text-slate-100 text-xs sm:text-lg font-medium leading-relaxed bg-black/80 p-3.5 sm:p-4 border border-pink-500/20 rounded-md">{t.s4Desc}</p>
             </div>
 
@@ -650,7 +684,10 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
               // TIMING SCHEDULE
             </span>
-            <h2 className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4">
+            <h2 
+              className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
               {t.timingHeader}
             </h2>
             <p className="text-slate-400 text-xs sm:text-lg max-w-2xl mx-auto">
@@ -674,7 +711,7 @@ export default function App() {
                   5:30 AM - 2:00 AM
                 </div>
               </div>
-              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2">{t.mixedTitle}</h3>
+              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>{t.mixedTitle}</h3>
               <span className="text-base sm:text-lg font-tech font-extrabold text-[#74E600] tracking-wider block mb-1">{t.mixedTime1}</span>
               <span className="text-base sm:text-lg font-tech font-extrabold text-[#74E600] tracking-wider block mb-4">{t.mixedTime2}</span>
               <p className="text-xs text-slate-400 leading-relaxed">{t.mixedDesc}</p>
@@ -694,7 +731,7 @@ export default function App() {
                   12:00 PM - 3:30 PM
                 </div>
               </div>
-              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2">{t.ladiesTitle}</h3>
+              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>{t.ladiesTitle}</h3>
               <span className="text-xl sm:text-2xl font-tech font-black text-pink-400 tracking-wider block mb-4 sm:mb-5">{t.ladiesTime}</span>
               <p className="text-xs text-slate-300 leading-relaxed">{t.ladiesDesc}</p>
             </div>
@@ -713,7 +750,7 @@ export default function App() {
                   BY APPOINTMENT
                 </div>
               </div>
-              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2">{t.ptTitle}</h3>
+              <h3 className="font-sfn-brand text-base sm:text-lg font-extrabold text-white uppercase tracking-wide mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>{t.ptTitle}</h3>
               <span className="text-base sm:text-lg font-tech font-extrabold text-amber-300 tracking-wider block mb-4 sm:mb-5">{t.ptTime}</span>
               <p className="text-xs text-slate-400 leading-relaxed">{t.ptDesc}</p>
             </div>
@@ -733,7 +770,10 @@ export default function App() {
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // MEDIA GALLERY
           </span>
-          <h2 className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4">
+          <h2 
+            className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
             {t.galleryHeader}
           </h2>
           <p className="text-slate-400 text-xs sm:text-lg">
@@ -772,7 +812,10 @@ export default function App() {
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
               // MEMBERSHIP RATES
             </span>
-            <h2 className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4">
+            <h2 
+              className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
               {t.pricingHeader}
             </h2>
             <p className="text-slate-400 text-xs sm:text-lg">
@@ -807,7 +850,10 @@ export default function App() {
                       <span className="text-slate-400 uppercase">ACCESS: FULL</span>
                     </div>
 
-                    <h3 className="font-sfn-brand text-lg sm:text-xl font-black text-white uppercase tracking-wide mb-2">
+                    <h3 
+                      className="font-sfn-brand text-lg sm:text-xl font-black text-white uppercase tracking-wide mb-2"
+                      style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    >
                       {title}
                     </h3>
                     <p className="text-slate-400 text-xs sm:text-sm h-auto sm:h-12 mb-5 sm:mb-6 font-normal leading-relaxed">
@@ -853,6 +899,7 @@ export default function App() {
                         ? 'cyber-button' 
                         : 'cyber-button-outline'
                     }`}
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
                   >
                     {t.choosePlan}
                   </a>
@@ -875,7 +922,10 @@ export default function App() {
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // TELEMETRY & LOCATION
           </span>
-          <h2 className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4">
+          <h2 
+            className="font-sfn-brand text-3xl sm:text-5xl font-black uppercase tracking-wider text-white mb-3 sm:mb-4"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
             {t.contactHeader}
           </h2>
           <p className="text-slate-400 text-xs sm:text-lg">
@@ -972,7 +1022,7 @@ export default function App() {
                 href={googleMapsDirectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cyber-badge px-3 py-1 text-[10px] font-extrabold flex items-center gap-1 hover:bg-[#74E600] hover:text-black transition-all"
+                className="cyber-badge px-3 py-1 text-[10px] font-extrabold flex items-center gap-1 hover:bg-[#74E600] hover:text-black transition-all font-tech"
               >
                 <span>{t.openMapBtn}</span>
                 <ExternalLink className="w-3 h-3" />
@@ -1003,7 +1053,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 font-black text-[#74E600]">
             <img src="/sfn_logo.png" alt="SFN Fitness Logo" className="h-7 sm:h-8 w-auto object-contain" />
-            <span className="font-sfn-brand">{t.brand}</span>
+            <span className="font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>{t.brand}</span>
           </div>
           <p className="text-[10px] sm:text-xs">{t.footerText}</p>
           <div className="flex items-center gap-6 font-bold text-slate-400 text-[10px] sm:text-xs">
