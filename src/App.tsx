@@ -192,12 +192,12 @@ const translations = {
 };
 
 const packages = [
-  { id: "day", price: "20", titleKey: "dayPass", descKey: "dayDesc", featured: false, code: "DAY_PASS" },
-  { id: "month", price: "125", titleKey: "oneMonth", descKey: "oneDesc", featured: false, code: "1_MONTH" },
-  { id: "two", price: "230", titleKey: "twoMonths", descKey: "twoDesc", featured: false, code: "2_MONTHS" },
-  { id: "three", price: "325", titleKey: "threeMonths", descKey: "threeDesc", featured: true, code: "3_MONTHS" },
-  { id: "six", price: "540", titleKey: "sixMonths", descKey: "sixDesc", featured: false, code: "6_MONTHS" },
-  { id: "year", price: "900", titleKey: "oneYear", descKey: "yearDesc", featured: false, code: "1_YEAR" },
+  { id: "day", price: "20", titleKey: "dayPass", descKey: "dayDesc", featured: false, code: "DAY PASS" },
+  { id: "month", price: "125", titleKey: "oneMonth", descKey: "oneDesc", featured: false, code: "1 MONTH MEMBERSHIP" },
+  { id: "two", price: "230", titleKey: "twoMonths", descKey: "twoDesc", featured: false, code: "2 MONTHS MEMBERSHIP" },
+  { id: "three", price: "325", titleKey: "threeMonths", descKey: "threeDesc", featured: true, code: "3 MONTHS MEMBERSHIP" },
+  { id: "six", price: "540", titleKey: "sixMonths", descKey: "sixDesc", featured: false, code: "6 MONTHS MEMBERSHIP" },
+  { id: "year", price: "900", titleKey: "oneYear", descKey: "yearDesc", featured: false, code: "1 YEAR VIP MEMBERSHIP" },
 ];
 
 const fallbackImg = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop";
@@ -221,7 +221,19 @@ export default function App() {
     }
   };
 
-  const whatsappLink = "https://wa.me/971567772004?text=Hello%20SFN%20Fitness!%20I%27d%20like%20to%20inquire%20about%20your%20gym%20memberships%20and%20packages.";
+  // WEBSITE ATTRIBUTION WHATSAPP LINKS
+  const generalWhatsappText = lang === 'en'
+    ? "Hello SFN Fitness! I am contacting you directly from your official website (sfn-fitness.com). I would like to inquire about gym memberships, timings, and training options."
+    : "مرحباً SFN فيتنس! أتواصل معكم مباشرة عبر موقعكم الإلكتروني الرسمي. أود الاستفسار عن اشتراكات النادي والمواعيد والتدريب.";
+
+  const whatsappLink = `https://wa.me/971567772004?text=${encodeURIComponent(generalWhatsappText)}`;
+
+  const getPackageWhatsappLink = (packageName: string, price: string) => {
+    const text = lang === 'en'
+      ? `Hello SFN Fitness! I am contacting you directly from your official website to subscribe to the ${packageName} package (${price} AED). Please guide me on registration.`
+      : `مرحباً SFN فيتنس! أتواصل معكم مباشرة عبر موقعكم الإلكتروني للاشتراك في باقة (${packageName}) بسعر ${price} درهم. يرجى تزويدي بتفاصيل التسجيل.`;
+    return `https://wa.me/971567772004?text=${encodeURIComponent(text)}`;
+  };
 
   return (
     <div className={`min-h-screen bg-[#040604] bg-cyber-grid text-slate-100 ${isRtl ? 'dir-rtl text-right' : 'dir-ltr text-left'}`} dir={isRtl ? 'rtl' : 'ltr'}>
@@ -839,6 +851,7 @@ export default function App() {
               const title = t[pkg.titleKey as keyof typeof t];
               const desc = t[pkg.descKey as keyof typeof t];
               const isFeatured = pkg.featured;
+              const packageWhatsappUrl = getPackageWhatsappLink(pkg.code, pkg.price);
 
               return (
                 <div 
@@ -902,7 +915,7 @@ export default function App() {
                   </div>
 
                   <a 
-                    href={`https://wa.me/971567772004?text=I%20want%20to%20subscribe%20to%20the%20${pkg.code}%20package%20(${pkg.price}%20AED)%20at%20SFN%20Fitness!`}
+                    href={packageWhatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`w-full py-3.5 sm:py-4 text-center text-xs sm:text-sm font-bold uppercase tracking-widest transition-all block ${
