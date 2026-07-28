@@ -1,795 +1,994 @@
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "motion/react";
-import { useRef, useState, useEffect, MouseEvent } from "react";
-import { Shield, Zap, TrendingUp, ChevronDown, Dumbbell, Mail, Phone, MapPin, Clock, Star, Target, Activity, ChevronLeft, ChevronRight, Languages } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { 
+  Dumbbell, Flame, Shield, Zap, Award, Heart, Clock, Phone, Mail, MapPin, 
+  MessageSquare, Languages, Check, ArrowRight, Sparkles, Trophy, 
+  Calendar, Star, ChevronRight, Menu, X, Activity, ShieldCheck, Camera, Image as ImageIcon, Upload
+} from "lucide-react";
 
 const translations = {
-    en: {
-        brand: "SFN GYM",
-        tagline: "LADIES & GENTS",
-        coach: "COACH: SHARAFU",
-        motto: "CHANGE YOUR LIFESTYLE",
-        join: "Join Now",
-        training: "Training",
-        pricing: "Pricing",
-        timing: "Timing",
-        contact: "Contact",
-        services: "Services",
-        facility: "Facility",
-        swipe: "Manual Gallery Control",
-        weight: "Weight Management",
-        weightDesc: "Expert weight gaining and loss programs tailored to your body type.",
-        cardio: "Cardio & Aerobics",
-        cardioDesc: "High-intensity group aerobics and cardio training for maximum endurance.",
-        bodybuilding: "Body Building",
-        bodybuildingDesc: "Professional muscle building and competition training for elite performance.",
-        pt: "Personal Training",
-        ptDesc: "Certified trainers providing one-on-one sessions at gym, home, or park.",
-        membership: "Membership Plans",
-        specialChallenge: "Special Challenge",
-        bellyChallenge: "3 Months Belly Removing Challenge Available Now!",
-        popular: "Most Popular",
-        couplePackage: "Special Couple Package",
-        coupleDesc: "Available for all durations. Transform together.",
-        workingHours: "Working Hours",
-        mixed: "MIXED",
-        ladiesTime: "Ladies Special Time",
-        monSat: "Monday to Saturday",
-        sunday: "Sunday",
-        morning: "Morning Session",
-        evening: "Evening Session",
-        openHours: "Open Hours",
-        getInTouch: "GET IN TOUCH.",
-        support: "Instant Support",
-        supportDesc: "The fastest way to join or ask questions is via WhatsApp.",
-        chat: "Chat on WhatsApp",
-        location: "Tower A1, City Tower, Al Nuaimia 3, Ajman-UAE",
-        arBrand: "SFN جيم"
-    },
-    ar: {
-        brand: "SFN جيم",
-        tagline: "للسيدات والرجال",
-        coach: "المدرب: شرفو",
-        motto: "غير أسلوب حياتك",
-        join: "انضم الآن",
-        training: "التدريب",
-        pricing: "الأسعار",
-        timing: "التوقيت",
-        contact: "اتصل بنا",
-        services: "خدماتنا",
-        facility: "المرفق",
-        swipe: "التحكم اليدوي في المعرض",
-        weight: "إدارة الوزن",
-        weightDesc: "برامج متخصصة لزيادة الوزن وإنقاصه مصممة حسب نوع جسمك وأهدافك.",
-        cardio: "كارديو وأيروبيكس",
-        cardioDesc: "تمارين أيروبيكس جماعية وكارديو عالية الكثافة لأقصى قدر من التحمل.",
-        bodybuilding: "بناء الأجسام",
-        bodybuildingDesc: "بناء عضلات احترافي وتدريب للمسابقات لأداء النخبة.",
-        pt: "تدريب شخصي",
-        ptDesc: "مدربون معتمدون يقدمون جلسات فردية في الجيم أو المنزل أو الحديقة.",
-        membership: "خطط العضوية",
-        specialChallenge: "تحدي خاص",
-        bellyChallenge: "تحدي إزالة الكرش لمدة 3 أشهر متاح الآن!",
-        popular: "الأكثر طلباً",
-        couplePackage: "باقة الأزواج الخاصة",
-        coupleDesc: "متاحة لجميع الفترات. تحولوا معاً.",
-        workingHours: "ساعات العمل",
-        mixed: "مختلط",
-        ladiesTime: "وقت خاص للسيدات",
-        monSat: "من الاثنين إلى السبت",
-        sunday: "الأحد",
-        morning: "الفترة الصباحية",
-        evening: "الفترة المسائية",
-        openHours: "ساعات العمل",
-        getInTouch: "تواصل معنا",
-        support: "الدعم الفوري",
-        supportDesc: "أسرع طريقة للانضمام أو طرح الأسئلة هي عبر الواتساب.",
-        chat: "تحدث معنا عبر الواتساب",
-        location: "برج A1، سيتي تاور، النعيمية 3، عجمان - الإمارات",
-        arBrand: "SFN جيم"
-    }
+  en: {
+    brand: "SFN FITNESS",
+    status: "OPEN NOW // AJMAN-UAE",
+    heroTitle1: "THE PEAK OF",
+    heroTitle2: "GYM FITNESS",
+    heroSub: "Premier athletic training and fitness hub in the heart of Ajman. Equipped with top-tier strength machines, heavy free weights, exclusive ladies' hours, and expert personal training by Coach Sharafu.",
+    joinNow: "JOIN MEMBERSHIP",
+    explorePricing: "VIEW MEMBERSHIP PLANS",
+    virtualTour: "EXPLORE FACILITIES",
+    coachBadge: "HEAD COACH: SHARAFU",
+    equipmentBadge: "PREMIUM GYM EQUIPMENT",
+    challengeBadge: "3-MONTH BELLY REMOVAL CHALLENGE ACTIVE",
+    
+    // Nav
+    navTraining: "FACILITIES",
+    navTiming: "SCHEDULE",
+    navGallery: "GALLERY",
+    navPricing: "MEMBERSHIP PLANS",
+    navContact: "LOCATION & CONTACT",
+    whatsappBtn: "INSTANT CHAT",
+
+    // Services / Facilities
+    servicesHeader: "PREMIER GYM FACILITIES",
+    servicesSub: "Modern strength equipment, dedicated ladies' zone, cardio machinery, and professional personal coaching in Ajman.",
+    s1Title: "STRENGTH & FREE WEIGHTS",
+    s1Sub: "HEAVY IRON & MACHINES",
+    s1Desc: "Comprehensive selection of pin-selected machines, plate-loaded stations, dumbbells, squat racks, and power benches for serious muscular strength.",
+    s2Title: "PERSONAL TRAINING",
+    s2Sub: "HEAD COACH SHARAFU",
+    s2Desc: "One-on-one tailored workout programs, technique correction, body transformation, and customized workout guidance with Coach Sharafu.",
+    s3Title: "CARDIO & ENDURANCE",
+    s3Sub: "STAMINA & FAT LOSS",
+    s3Desc: "Treadmills, elliptical trainers, stationary bikes, and conditioning gear designed to boost cardiovascular endurance and burn fat efficiently.",
+    s4Title: "EXCLUSIVE LADIES GYM",
+    s4Sub: "100% PRIVATE ATHLETIC SUITE",
+    s4Desc: "A dedicated, fully equipped, and private workout environment giving female members complete comfort and privacy every single day.",
+
+    // Timings
+    timingHeader: "OPERATION SCHEDULE",
+    timingSub: "7 days a week operations featuring general mixed sessions and daily dedicated ladies-only access.",
+    mixedTitle: "GENERAL TRAINING (MIXED)",
+    mixedTime1: "05:30 AM - 12:00 PM",
+    mixedTime2: "03:30 PM - 02:00 AM",
+    mixedDesc: "Full facility access for men & women with on-floor trainer assistance and motivating atmosphere.",
+    ladiesTitle: "LADIES EXCLUSIVE TIME",
+    ladiesTime: "12:00 PM - 03:30 PM",
+    ladiesDesc: "100% private access reserved exclusively for female members every single day.",
+    ptTitle: "PERSONAL TRAINING & VIP",
+    ptTime: "BY APPOINTMENT",
+    ptDesc: "Dedicated 1-on-1 coaching sessions scheduled around your availability for fast-tracked physical goals.",
+    dailyNote: "Schedule active Monday through Sunday at City Tower, Al Nuaimia 3, Ajman.",
+
+    // Gallery
+    galleryHeader: "SFN GYM GALLERY",
+    gallerySub: "Real photos from our training floors and facility layout (Official photos coming soon).",
+    uploadNotice: "OFFICIAL PHOTOS COMING SOON",
+    uploadDesc: "Photo slots reserved for official SFN Fitness high-resolution gym photos.",
+
+    // Pricing
+    pricingHeader: "MEMBERSHIP PACKAGES",
+    pricingSub: "Clear, straightforward pricing with zero hidden fees. Pick your duration and start training today.",
+    dayPass: "1 DAY PASS",
+    dayDesc: "Single day full gym & facility access.",
+    oneMonth: "1 MONTH MEMBERSHIP",
+    oneDesc: "30 days of full daily gym access.",
+    twoMonths: "2 MONTHS MEMBERSHIP",
+    twoDesc: "Sustained momentum and muscle conditioning.",
+    threeMonths: "3 MONTHS MEMBERSHIP",
+    threeDesc: "Most Popular! Automatically includes entry to the 3-Month Belly Removal Challenge.",
+    sixMonths: "6 MONTHS MEMBERSHIP",
+    sixDesc: "Serious long-term physical transformation & endurance.",
+    oneYear: "1 YEAR VIP MEMBERSHIP",
+    yearDesc: "Best annual value with full year unlimited gym access.",
+    currency: "AED",
+    popularTag: "MOST POPULAR // CHALLENGE INCLUDED",
+    choosePlan: "SELECT PLAN",
+    couplePromo: "⚡ SPECIAL COUPLE & GROUP DISCOUNTS AVAILABLE UPON REQUEST!",
+
+    // Contact
+    contactHeader: "CONTACT & LOCATION",
+    contactSub: "Reach out to reception directly or chat via WhatsApp for instant membership inquiry.",
+    phoneLabel: "LANDLINE PHONE",
+    whatsappLabel: "DIRECT WHATSAPP",
+    emailLabel: "EMAIL ADDRESS",
+    locationLabel: "ADDRESS LOCATION",
+    socialLabel: "INSTAGRAM PAGE",
+    addressValue: "Tower A1, City Tower, Al Nuaimia 3, Ajman, UAE",
+    chatNow: "START CHAT NOW",
+    footerText: "© 2026 SFN FITNESS. ALL RIGHTS RESERVED."
+  },
+  ar: {
+    brand: "SFN فيتنس",
+    status: "مفتوح الآن // عجمان - الإمارات",
+    heroTitle1: "قمة اللياقة",
+    heroTitle2: "والبناء البدني",
+    heroSub: "المركز الرياضي والأفضل للتدريب في قلب عجمان. مجهز بأحدث أجهزة القوة، الأوزان الحرة، فترات خاصة بالسيدات، وإشراف مباشر من الكابتن شرفو.",
+    joinNow: "اشترك الآن",
+    explorePricing: "عرض باقات العضوية",
+    virtualTour: "استكشف المرافق",
+    coachBadge: "المدرب الرئيسي: شرفو",
+    equipmentBadge: "معدات رياضية احترافية",
+    challengeBadge: "تحدي إزالة الكرش لمدة 3 أشهر نشط الآن",
+    
+    // Nav
+    navTraining: "المرافق والخدمات",
+    navTiming: "جدول المواعيد",
+    navGallery: "معرض الصور",
+    navPricing: "باقات العضوية",
+    navContact: "الموقع والتواصل",
+    whatsappBtn: "تواصل واتساب",
+
+    // Services / Facilities
+    servicesHeader: "مرافق الصالة الرياضية",
+    servicesSub: "أحدث معدات القوة والحديد، قسم خاص ومستقل للسيدات، وأجهزة الكارديو بإشراف مدربين محترفين في عجمان.",
+    s1Title: "قسم القوة والأوزان الحرة",
+    s1Sub: "معدات وأجهزة الحديد",
+    s1Desc: "تشكيلة واسعة من أجهزة التمارين المستهدفة، منصات السكوات، ومقاعد البنش والأوزان الحرة لبناء العضلات وزيادة القوة.",
+    s2Title: "التدريب الشخصي المباشر",
+    s2Sub: "إشراف الكابتن شرفو",
+    s2Desc: "برامج تدريبية مخصصة 1 على 1، تصحيح التكنيك والأداء، وتوجيه متكامل لتحقيق أهدافك البدنية بفعالية.",
+    s3Title: "منطقة الكارديو واللياقة",
+    s3Sub: "تحمل وحرق الدهون",
+    s3Desc: "أجهزة الجري، الدراجات الرياضية، وأدوات اللياقة البدنية لحرق الدهون وتحسين صحة القلب والتحمل البدني.",
+    s4Title: "القسم الخاص بالسيدات",
+    s4Sub: "بيئة تدريب خاصة ومستقلة 100%",
+    s4Desc: "صالة مجهزة بالكامل تضمن الخصوصية التامة والراحة المطلقة للسيدات يومياً طوال فترة الساعات المخصصة.",
+
+    // Timings
+    timingHeader: "جدول أوقات العمل",
+    timingSub: "مواعيد عمل طوال أيام الأسبوع السبعة تتضمن أوقاتاً مختلطة وفترات يومية محجوزة حصرياً للسيدات.",
+    mixedTitle: "التدريب العام (الأوقات المختلطة)",
+    mixedTime1: "05:30 صباحاً - 12:00 ظهراً",
+    mixedTime2: "03:30 عصراً - 02:00 صباحاً",
+    mixedDesc: "دخول كامل للمنشأة ومرافقها مع توفير المساعدة الفنية والارشادية من الكادر التدريبي.",
+    ladiesTitle: "الوقت الحصري للسيدات",
+    ladiesTime: "12:00 ظهراً - 03:30 عصراً",
+    ladiesDesc: "خصوصية تامة 100% محجوزة حصرياً للسيدات للاستمتاع بحرية في الصالة ومعداتها يومياً.",
+    ptTitle: "التدريب الشخصي والـ VIP",
+    ptTime: "حسب الموعد المسبق",
+    ptDesc: "جلسات مخصصة تتماشى مع جدولك الزمني وأهدافك البدنية للوصول إلى التحول المطلوب بسرعة.",
+    dailyNote: "الجدول يعمل طوال أيام الأسبوع من الاثنين إلى الأحد في سيتي تاور، عجمان.",
+
+    // Gallery
+    galleryHeader: "معرض صور النادي",
+    gallerySub: "صور واقعية لمرافق ومعدات النادي (سيتّم رفع الصور الرسمية قريباً).",
+    uploadNotice: "سيتم رفع الصور الرسمية قريباً",
+    uploadDesc: "خانة مخصصة لرفع صور النادي عالية الدقة.",
+
+    // Pricing
+    pricingHeader: "باقات العضوية والاشتراكات",
+    pricingSub: "أسعار شفافة بدون أي رسوم مخفية. اختر المدة المناسبة وانطلق فوراً في رحلتك الرياضية.",
+    dayPass: "اشتراك يوم واحد",
+    dayDesc: "تذكرة ليوم كامل لتجربة النادي وجميع الأجهزة والتمارين.",
+    oneMonth: "اشتراك شهر واحد",
+    oneDesc: "30 يوماً من الدخول اليومي غير المحدود لجميع مرافق النادي.",
+    twoMonths: "اشتراك شهرين",
+    twoDesc: "تقدم مستمر وبناء قوي للياقة البدنية ورسم العضلات.",
+    threeMonths: "اشتراك 3 أشهر",
+    threeDesc: "الأكثر طلباً! يشمل تلقائياً الدخول في تحدي إزالة الكرش الخاص.",
+    sixMonths: "اشتراك 6 أشهر",
+    sixDesc: "التزام جاد بالتحول الكامل للشكل والقدرة البدنية.",
+    oneYear: "اشتراك سنة كاملة",
+    yearDesc: "أفضل استثمار سنوي لنمط حياة رياضي مستدام مع أعلى قيمة.",
+    currency: "درهم",
+    popularTag: "الأكثر شهرة // يشمل التحدي الخاص",
+    choosePlan: "اختر الباقة الآن",
+    couplePromo: "⚡ خصومات وعروض حصرية للأزواج والمجموعات متوفرة عند الطلب!",
+
+    // Contact
+    contactHeader: "التواصل والموقع الجغرافي",
+    contactSub: "تواصل مع الاستقبال مباشرة عبر الهاتف أو الواتساب للاستفسار والتسجيل.",
+    phoneLabel: "الهاتف الثابت",
+    whatsappLabel: "واتساب مباشر",
+    emailLabel: "البريد الإلكتروني",
+    locationLabel: "عنوان النادي",
+    socialLabel: "إنستغرام النادي",
+    addressValue: "برج A1، سيتي تاور، النعيمية 3، عجمان، الإمارات العربية المتحدة",
+    chatNow: "بدء التحدث الآن",
+    footerText: "© 2026 SFN فيتنس. جميع الحقوق محفوظة."
+  }
 };
 
-interface LangProps {
-    lang: 'en' | 'ar';
-}
+const packages = [
+  { id: "day", price: "20", titleKey: "dayPass", descKey: "dayDesc", featured: false, code: "DAY_PASS" },
+  { id: "month", price: "125", titleKey: "oneMonth", descKey: "oneDesc", featured: false, code: "1_MONTH" },
+  { id: "two", price: "230", titleKey: "twoMonths", descKey: "twoDesc", featured: false, code: "2_MONTHS" },
+  { id: "three", price: "325", titleKey: "threeMonths", descKey: "threeDesc", featured: true, code: "3_MONTHS" },
+  { id: "six", price: "540", titleKey: "sixMonths", descKey: "sixDesc", featured: false, code: "6_MONTHS" },
+  { id: "year", price: "900", titleKey: "oneYear", descKey: "yearDesc", featured: false, code: "1_YEAR" },
+];
 
-const ThreeDHero = ({ lang }: LangProps) => {
-    const t = translations[lang];
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Mouse positioning for interaction
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 20 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 20 });
-
-  const rotateX = useTransform(smoothMouseY, [-300, 300], [10, -10]);
-  const rotateY = useTransform(smoothMouseX, [-300, 300], [-10, 10]);
-
-  // Zooming the main content towards the camera
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 2.5]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const blur = useTransform(scrollYProgress, [0, 0.5], [0, 10]);
-  
-  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, -500]);
-  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, -250]);
-
-  const smoothScale = useSpring(scale, { stiffness: 50, damping: 20 });
-
-  const handleMouseMove = (e: MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      mouseX.set(x);
-      mouseY.set(y);
-    }
-  };
-
-  return (
-    <section 
-      ref={containerRef} 
-      onMouseMove={handleMouseMove}
-      className="h-[300vh] relative bg-black cursor-none"
-    >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden perspective-1000">
-        
-        {/* Background Layer with Depth */}
-        <motion.div 
-          style={{ scale: bgScale, filter: `blur(${blur}px)` }}
-          className="absolute inset-0 z-0"
-        >
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1975&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale" />
-          <div className="absolute inset-0 bg-radial-gradient from-transparent to-black" />
-          
-          {/* Tech Grid */}
-          <div className="absolute inset-0 opacity-[0.15]" 
-               style={{ backgroundImage: 'linear-gradient(rgba(116, 230, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(116, 230, 0, 0.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        </motion.div>
-
-        {/* Floating Decorative HUD Elements */}
-        <motion.div style={{ y: layer1Y, rotate: 45 }} className="absolute top-[10%] left-[10%] z-10 opacity-20 hidden lg:flex flex-col gap-2">
-            <Target size={120} className="text-primary animate-pulse" />
-            <div className="font-mono text-[10px] text-primary tracking-widest uppercase">Target.Lock.Status[OK]</div>
-        </motion.div>
-        
-        <motion.div style={{ y: layer2Y }} className="absolute top-[20%] right-[15%] z-10 opacity-20 hidden lg:flex flex-col items-end">
-            <Activity size={80} className="text-primary" />
-            <div className="h-20 w-[2px] bg-primary/40 mt-4 mr-10" />
-            <div className="font-mono text-[10px] text-primary tracking-widest uppercase mt-2">Bio_Metric.Active</div>
-        </motion.div>
-
-        {/* HUD Corners */}
-        <div className="absolute inset-0 p-10 pointer-events-none opacity-20 z-20 font-mono text-[10px] hidden md:block">
-            <div className="absolute top-10 left-10 flex flex-col gap-1">
-                <div className="flex gap-2"><span className="text-primary">LAT:</span> 51.5074° N</div>
-                <div className="flex gap-2"><span className="text-primary">LNG:</span> 0.1278° W</div>
-            </div>
-            <div className="absolute top-10 right-10 flex flex-col gap-1 items-end">
-                <div className="flex gap-2">SYS_OPTIMIZED: <span className="text-primary">100%</span></div>
-                <div className="flex gap-2 uppercase tracking-tighter">Smart_City_Layer_01</div>
-            </div>
-            <div className="absolute bottom-10 left-10 flex flex-col gap-1">
-                <div className="flex gap-2 items-center text-primary/40 uppercase tracking-widest">System_Active</div>
-            </div>
-        </div>
-
-        {/* Main Hero "Gateway" */}
-        <motion.div
-           style={{ 
-             scale: smoothScale,
-             opacity,
-             rotateX,
-             rotateY
-           }}
-           className="relative z-10 flex flex-col items-center justify-center text-center px-6 preserve-3d"
-        >
-          <motion.div 
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="preserve-3d"
-          >
-            <div className="flex items-center justify-center gap-6 mb-8 preserve-3d">
-               <motion.div 
-                 initial={{ scaleY: 0 }}
-                 animate={{ scaleY: 1 }}
-                 transition={{ delay: 0.5, duration: 1 }}
-                 className="w-1 h-32 bg-primary origin-top" 
-               />
-               
-               <h1 className="text-[14vw] md:text-[12vw] font-bold tracking-tight uppercase leading-[0.8] mix-blend-overlay drop-shadow-[0_0_30px_rgba(116,230,0,0.3)] bg-gradient-to-r from-transparent via-primary/50 to-transparent bg-[length:200%_auto] animate-shimmer bg-clip-text">
-                 <motion.span 
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="block"
-                 >SFN</motion.span> 
-                 <motion.span 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="block translate-x-4"
-                 ><span className="text-primary italic">GYM</span></motion.span>
-               </h1>
-
-               <motion.div 
-                 initial={{ scaleY: 0 }}
-                 animate={{ scaleY: 1 }}
-                 transition={{ delay: 0.5, duration: 1 }}
-                 className="w-1 h-32 bg-primary origin-bottom" 
-               />
-            </div>
-            
-            <div className="flex flex-col items-center translate-z-20">
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1 }}
-                    className="flex flex-col items-center gap-2 mb-6"
-                >
-                    <span className="font-mono text-primary tracking-[0.5em] text-sm md:text-lg uppercase">
-                        {t.tagline}
-                    </span>
-                    <div className="h-[1px] w-12 bg-primary/30" />
-                    <span className="font-sans text-white/40 text-xs tracking-[0.3em] uppercase">
-                        {t.coach}
-                    </span>
-                </motion.div>
-                <motion.p 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2 }}
-                    className="text-2xl md:text-4xl font-display font-light text-white/60 uppercase tracking-[0.3em]"
-                >
-                    {t.motto}
-                </motion.p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Dynamic Scanline */}
-        <motion.div 
-            animate={{ top: ['-10%', '110%'] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent z-30 pointer-events-none"
-        />
-
-        {/* Custom Cursor Circle */}
-        <motion.div 
-            style={{ x: smoothMouseX, y: smoothMouseY, translateX: '-50%', translateY: '-50%' }}
-            className="fixed top-0 left-0 w-8 h-8 border border-primary rounded-full pointer-events-none z-[100] hidden md:block"
-        />
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
-          className="absolute bottom-10 flex flex-col items-center gap-4 text-white/30"
-        >
-            <div className="w-[1px] h-20 bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
-            <span className="text-[10px] uppercase tracking-[0.4em] font-mono">Push Forward</span>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-const TrainingBackground = () => {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    const smoothX = useSpring(mouseX, { stiffness: 50, damping: 30 });
-    const smoothY = useSpring(mouseY, { stiffness: 50, damping: 30 });
-
-    const handleMouseMove = (e: MouseEvent) => {
-        const { currentTarget, clientX, clientY } = e;
-        const rect = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - rect.left);
-        mouseY.set(clientY - rect.top);
-    };
-
-    return (
-        <div 
-            onMouseMove={handleMouseMove}
-            className="absolute inset-0 z-0 pointer-events-none"
-        >
-            <motion.div 
-                style={{ 
-                    x: smoothX, 
-                    y: smoothY,
-                    translateX: '-50%',
-                    translateY: '-50%'
-                }}
-                className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px]"
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(116,230,0,0.05)_0%,transparent_70%)]" />
-        </div>
-    );
-};
-
-const Features = ({ lang }: LangProps) => {
-    const t = translations[lang];
-    return (
-        <section id="services" className="py-24 px-6 bg-black">
-            <div className="max-w-7xl mx-auto mb-16 text-center">
-                <h2 className="text-4xl md:text-6xl font-bold mb-4 uppercase">{lang === 'en' ? 'Our' : ''} <span className="text-primary italic">{t.services}</span></h2>
-                <div className="w-24 h-1 bg-primary mx-auto" />
-            </div>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                    { icon: <TrendingUp className="text-primary" />, title: t.weight, desc: t.weightDesc },
-                    { icon: <Zap className="text-primary" />, title: t.cardio, desc: t.cardioDesc },
-                    { icon: <Dumbbell className="text-primary" />, title: t.bodybuilding, desc: t.bodybuildingDesc },
-                    { icon: <Star className="text-primary" />, title: t.pt, desc: t.ptDesc }
-                ].map((f, i) => (
-                    <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.1 }}
-                        viewport={{ once: true }}
-                        whileHover="hover"
-                        className="relative p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-all group text-center overflow-hidden"
-                    >
-                        {/* Hover Background Glow */}
-                        <motion.div 
-                            variants={{
-                                hover: { opacity: 0.6 }
-                            }}
-                            initial={{ opacity: 0 }}
-                            className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-500"
-                        >
-                             <motion.div 
-                                animate={{ 
-                                    scale: [1, 1.2, 1],
-                                    rotate: [0, 10, 0],
-                                }}
-                                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                                className="absolute -inset-10 bg-gradient-to-br from-primary/20 via-transparent to-primary/10 blur-3xl opacity-50"
-                             />
-                        </motion.div>
-
-                        <div className="relative z-10">
-                            <div className="mb-4 mx-auto p-4 w-fit rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-all">
-                                {f.icon}
-                            </div>
-                            <h3 className="text-lg font-bold mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">{f.title}</h3>
-                            <p className="text-white/40 text-sm leading-relaxed font-sans">{f.desc}</p>
-                        </div>
-                        
-                        {/* Decorative Corner Accent */}
-                        <div className="absolute top-0 right-0 w-8 h-8 bg-primary/10 -translate-y-full translate-x-full group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500 rounded-bl-xl" />
-                    </motion.div>
-                ))}
-            </div>
-        </section>
-    );
-}
-
-const PricingSection = ({ lang }: LangProps) => {
-    const t = translations[lang];
-    const prices = [
-        { period: lang === 'en' ? "One Day" : "يوم واحد", price: "20", sub: "AED" },
-        { period: lang === 'en' ? "One Month" : "شهر واحد", price: "125", sub: "AED" },
-        { period: lang === 'en' ? "Two Months" : "شهران", price: "230", sub: "AED" },
-        { period: lang === 'en' ? "Three Months" : "3 أشهر", price: "325", sub: "AED", popular: true },
-        { period: lang === 'en' ? "Six Months" : "6 أشهر", price: "540", sub: "AED" },
-        { period: lang === 'en' ? "One Year" : "سنة واحدة", price: "900", sub: "AED" },
-    ];
-
-    return (
-        <section id="pricing" className="py-24 px-6 bg-black relative">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                    <div className={lang === 'ar' ? 'text-right md:order-last' : ''}>
-                        <h2 className="text-4xl md:text-7xl font-bold uppercase mb-4">{t.membership.split(' ')[0]} <br/><span className="text-primary italic">{t.membership.split(' ')[1] || ''} {t.membership.split(' ')[2] || ''}</span></h2>
-                        <div className={`w-24 h-1 bg-primary ${lang === 'ar' ? 'mr-0 ml-auto' : ''}`} />
-                    </div>
-                    <div className="bg-primary/10 border border-primary/20 p-6 rounded-2xl max-w-sm">
-                        <div className={`flex items-center gap-2 mb-2 text-primary ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                            <Zap size={20} className="fill-primary" />
-                            <span className="font-bold uppercase tracking-wider text-sm">{t.specialChallenge}</span>
-                        </div>
-                        <p className={`text-white font-bold text-lg uppercase leading-tight ${lang === 'ar' ? 'text-right' : ''}`}>
-                            {t.bellyChallenge}
-                        </p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {prices.map((p, i) => (
-                        <motion.div 
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1 }}
-                            className={`relative p-8 rounded-3xl border ${p.popular ? 'border-primary bg-primary/5' : 'border-white/10 bg-white/5'} group overflow-hidden ${lang === 'ar' ? 'text-right' : ''}`}
-                        >
-                            {p.popular && (
-                                <div className={`absolute top-0 ${lang === 'en' ? 'right-0 rounded-bl-xl' : 'left-0 rounded-br-xl'} bg-primary text-black text-[10px] font-bold px-4 py-1 uppercase tracking-widest`}>
-                                    {t.popular}
-                                </div>
-                            )}
-                            <div className="mb-8">
-                                <span className="block text-white/40 text-sm uppercase tracking-widest mb-2 font-mono">{p.period}</span>
-                                <div className={`flex items-baseline gap-2 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-5xl font-bold">{p.price}</span>
-                                    <span className="text-primary font-bold uppercase">{p.sub}</span>
-                                </div>
-                            </div>
-                            <ul className="space-y-4 mb-8 text-sm text-white/60">
-                                <li className={`flex items-center gap-3 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                    {lang === 'en' ? 'Full Gym Access' : 'دخول كامل للجيم'}
-                                </li>
-                                <li className={`flex items-center gap-3 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                    {lang === 'en' ? 'Ladies & Gents Mixed' : 'مختلط سيدات ورجال'}
-                                </li>
-                                <li className={`flex items-center gap-3 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                    {lang === 'en' ? 'Personal Training Option' : 'خيار التدريب الشخصي'}
-                                </li>
-                            </ul>
-                        </motion.div>
-                    ))}
-                </div>
-
-                <div className={`mt-12 p-8 rounded-3xl bg-gradient-to-r from-primary to-primary/60 text-black flex flex-col md:flex-row items-center justify-between gap-8 ${lang === 'ar' ? 'md:flex-row-reverse' : ''}`}>
-                    <div className={lang === 'ar' ? 'text-right' : ''}>
-                        <h3 className="text-3xl font-bold uppercase mb-2">{t.couplePackage}</h3>
-                        <p className="font-medium opacity-80 uppercase tracking-wide">{t.coupleDesc}</p>
-                    </div>
-                    <Star size={48} className="opacity-20 hidden md:block" />
-                </div>
-            </div>
-        </section>
-    );
-};
-
-const ScheduleSection = ({ lang }: LangProps) => {
-    const t = translations[lang];
-    return (
-        <section id="schedule" className="py-24 px-6 bg-zinc-950 relative overflow-hidden">
-            <div className={`max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center ${lang === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
-                <div className={`flex-1 ${lang === 'ar' ? 'text-right' : ''}`}>
-                    <h2 className="text-4xl md:text-6xl font-bold uppercase mb-8">{t.workingHours.split(' ')[0]} <br/><span className="text-primary italic">{t.workingHours.split(' ')[1] || ''}</span></h2>
-                    <p className={`text-white/40 mb-12 max-w-md uppercase tracking-widest text-sm leading-relaxed ${lang === 'ar' ? 'mr-auto ml-0' : ''}`}>
-                        {lang === 'en' 
-                            ? 'Flexible timings designed to fit your busy lifestyle, including dedicated ladies-only hours for privacy and comfort.'
-                            : 'توقيتات مرنة مصممة لتناسب أسلوب حياتك المزدحم، بما في ذلك ساعات مخصصة للسيدات فقط للخصوصية والراحة.'}
-                    </p>
-                    
-                    <div className="space-y-6">
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                            <h4 className={`text-primary font-bold uppercase tracking-widest mb-4 flex items-center gap-3 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                <Clock size={18} /> {t.monSat}
-                            </h4>
-                            <div className="space-y-4 font-sans">
-                                <div className={`flex justify-between items-center pb-4 border-b border-white/5 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-white/60">{t.morning}</span>
-                                    <span className={`font-bold ${lang === 'ar' ? 'flex flex-row-reverse gap-2' : ''}`}>
-                                        05.30 AM - 11.30 AM 
-                                        <span className={`text-[10px] text-primary/60 ${lang === 'en' ? 'ml-2' : 'mr-2'}`}>({t.mixed})</span>
-                                    </span>
-                                </div>
-                                <div className={`flex justify-between items-center pb-4 border-b border-white/5 ${lang === 'ar' ? 'flex-row-reverse text-primary' : 'text-primary'}`}>
-                                    <span className="opacity-80">{t.ladiesTime}</span>
-                                    <span className="font-bold">11.30 AM - 03.30 PM</span>
-                                </div>
-                                <div className={`flex justify-between items-center ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-white/60">{t.evening}</span>
-                                    <span className={`font-bold ${lang === 'ar' ? 'flex flex-row-reverse gap-2' : ''}`}>
-                                        03.30 PM - 02.00 AM 
-                                        <span className={`text-[10px] text-primary/60 ${lang === 'en' ? 'ml-2' : 'mr-2'}`}>({t.mixed})</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                            <h4 className={`text-primary font-bold uppercase tracking-widest mb-4 flex items-center gap-3 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                <Clock size={18} /> {t.sunday}
-                            </h4>
-                            <div className={`flex justify-between items-center ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                <span className="text-white/60">{t.openHours}</span>
-                                <span className="font-bold font-sans">05.00 PM - 10.00 PM</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div className="flex-1 relative order-first lg:order-none w-full">
-                    <div className="aspect-[4/5] rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                        <img 
-                            src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop" 
-                            alt="Gym Training"
-                            className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700"
-                        />
-                    </div>
-                    <a 
-                        href="https://wa.me/971565773090" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className={`absolute -bottom-6 ${lang === 'en' ? '-right-6 rotate-3' : '-left-6 -rotate-3'} bg-primary p-10 rounded-3xl text-black font-bold hidden md:block hover:scale-110 transition-transform z-20`}
-                    >
-                        <div className="text-4xl uppercase">{t.join.split(' ')[0]}<br/>{t.join.split(' ')[1] || ''}</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-const ImageGallery = ({ lang }: LangProps) => {
-    const t = translations[lang];
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const images = [
-        "/images/gym_1.jpg",
-        "/images/gym_2.jpg",
-        "/images/gym_3.jpg",
-        "/images/gym_4.jpg",
-    ];
-
-    const scroll = (direction: 'left' | 'right') => {
-        if (scrollRef.current) {
-            const { scrollLeft, clientWidth } = scrollRef.current;
-            const scrollTo = direction === 'left' 
-                ? scrollLeft - clientWidth / 2 
-                : scrollLeft + clientWidth / 2;
-            
-            scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-        }
-    };
-
-    return (
-        <section className="py-24 bg-black overflow-hidden relative">
-            <div className={`max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-6 ${lang === 'ar' ? 'md:flex-row-reverse' : ''}`}>
-                <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
-                    <h2 className="text-4xl md:text-6xl font-bold uppercase mb-4">{t.facility.split(' ')[0]} <span className="text-primary italic">{t.facility.split(' ')[1] || ''}</span></h2>
-                    <div className={`w-24 h-1 bg-primary mb-4 ${lang === 'ar' ? 'mr-0 ml-auto' : 'mx-0'}`} />
-                    <p className="text-white/40 text-xs uppercase tracking-widest font-mono">{t.swipe}</p>
-                </div>
-                
-                <div className={`flex gap-4 mb-4 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                    <button 
-                        onClick={() => scroll(lang === 'en' ? 'left' : 'right')}
-                        className="p-4 rounded-full border border-white/10 hover:border-primary hover:text-primary transition-all active:scale-90"
-                    >
-                        <ChevronLeft size={24} className={lang === 'ar' ? 'rotate-180' : ''} />
-                    </button>
-                    <button 
-                        onClick={() => scroll(lang === 'en' ? 'right' : 'left')}
-                        className="p-4 rounded-full border border-white/10 hover:border-primary hover:text-primary transition-all active:scale-90"
-                    >
-                        <ChevronRight size={24} className={lang === 'ar' ? 'rotate-180' : ''} />
-                    </button>
-                </div>
-            </div>
-            
-            <div 
-                ref={scrollRef}
-                className={`flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-12 no-scrollbar ${lang === 'ar' ? 'flex-row-reverse' : ''}`}
-            >
-                {images.map((src, i) => (
-                    <motion.div 
-                        key={i} 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        className="w-[85vw] md:w-[400px] aspect-[4/6] rounded-[2rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 flex-shrink-0 border border-white/5 snap-center"
-                    >
-                        <img 
-                            src={src} 
-                            alt={`Gym internal ${i}`} 
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                        />
-                    </motion.div>
-                ))}
-            </div>
-        </section>
-    );
-};
-
-const Navbar = ({ lang, setLang }: { lang: 'en' | 'ar', setLang: (l: 'en' | 'ar') => void }) => {
-    const t = translations[lang];
-    return (
-        <nav className="fixed top-0 left-0 w-full z-[100] px-4 md:px-6 py-6 flex justify-between items-center mix-blend-difference">
-          <div className={`flex items-center ${lang === 'ar' ? 'flex-row-reverse text-right' : ''}`}>
-             <img 
-                 src="/images/logo.png" 
-                 alt="SFN Gym Logo" 
-                 className="h-[50px] w-auto object-contain"
-             />
-          </div>
-          
-          <div className={`hidden md:flex gap-8 text-sm font-mono uppercase tracking-widest ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-            <a href="#training" className="hover:text-primary transition-colors">{t.training}</a>
-            <a href="#pricing" className="hover:text-primary transition-colors">{t.pricing}</a>
-            <a href="#schedule" className="hover:text-primary transition-colors">{t.timing}</a>
-            <a href="#contact" className="hover:text-primary transition-colors">{t.contact}</a>
-          </div>
-          
-          <div className={`flex items-center gap-4 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-            <button 
-                onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-                className="flex items-center gap-2 p-2 rounded-lg bg-white/10 hover:bg-primary hover:text-black transition-all border border-white/10"
-            >
-                <Languages size={18} />
-                <span className="font-bold text-xs uppercase">{lang === 'en' ? 'AR' : 'EN'}</span>
-            </button>
-            <a 
-                href="https://wa.me/971565773090" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-white text-black px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm uppercase tracking-tight hover:bg-primary transition-colors whitespace-nowrap"
-            >
-                {t.join}
-            </a>
-          </div>
-        </nav>
-    );
-};
-
-const Contact = ({ lang }: LangProps) => {
-    const t = translations[lang];
-    return (
-        <section id="contact" className="py-24 px-6 bg-black border-t border-white/5">
-            <div className="max-w-7xl mx-auto">
-                <div className={`flex flex-col lg:flex-row gap-16 ${lang === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
-                    <div className={`flex-1 ${lang === 'ar' ? 'text-right' : ''}`}>
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 uppercase">
-                            {t.getInTouch.split(' ')[0]} {t.getInTouch.split(' ')[1] || ''} <span className="text-primary italic">{t.getInTouch.split(' ')[2] || ''}</span>
-                        </h2>
-                        <p className={`text-white/60 mb-12 text-lg font-sans max-w-md ${lang === 'ar' ? 'mr-auto ml-0' : ''}`}>
-                            {lang === 'en' 
-                                ? "Ready to transform your life? Reach out today and let's start your journey toward elite performance."
-                                : "هل أنت مستعد لتغيير حياتك؟ تواصل معنا اليوم ولنبدأ رحلتك نحو أداء النخبة."}
-                        </p>
-                        
-                        <div className="space-y-8">
-                            {[
-                                { icon: <Mail size={20} />, label: "Email", value: "sharfu.scg@gmail.com" },
-                                { icon: <Phone size={20} />, label: "Phone", value: "052 960 4582" },
-                                { icon: <MapPin size={20} />, label: "Location", value: t.location },
-                                { icon: <Zap size={20} />, label: "WhatsApp", value: "056 577 3090" }
-                            ].map((item, i) => (
-                                <div key={i} className={`flex items-start gap-4 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <div className="p-3 bg-white/5 rounded-lg text-primary border border-white/10">
-                                        {item.icon}
-                                    </div>
-                                    <div>
-                                        <div className="text-xs uppercase tracking-widest text-white/40 mb-1 font-mono">
-                                            {item.label}
-                                        </div>
-                                        <div className="text-lg font-medium">{item.value}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className={`flex-1 flex flex-col gap-6 justify-center ${lang === 'ar' ? 'text-right' : ''}`}>
-                        <div className="bg-white/5 border border-white/10 p-8 md:p-12 rounded-3xl text-center">
-                            <Zap size={48} className="text-primary mx-auto mb-6 fill-primary/20" />
-                            <h3 className="text-2xl font-bold mb-4 uppercase tracking-wider">{t.support}</h3>
-                            <p className="text-white/60 mb-8 font-sans">
-                                {t.supportDesc}
-                            </p>
-                            <a 
-                                href="https://wa.me/971565773090" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="inline-block w-full bg-primary text-black font-bold py-6 rounded-2xl text-xl uppercase tracking-[0.2em] hover:bg-white transition-all transform active:scale-95 shadow-[0_0_30px_rgba(255,184,0,0.2)]"
-                            >
-                                {t.chat}
-                            </a>
-                        </div>
-                        
-                        <div className="bg-white/5 border border-white/10 p-2 rounded-3xl overflow-hidden h-[300px] relative group">
-                            <iframe 
-                                width="100%" 
-                                height="100%" 
-                                frameBorder="0" 
-                                scrolling="no" 
-                                marginHeight={0} 
-                                marginWidth={0} 
-                                src="https://maps.google.com/maps?q=Smart%20City%20Gym%20Ajman%20City%20Tower&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                                className="grayscale contrast-125 opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                            />
-                            <div className={`absolute bottom-4 ${lang === 'en' ? 'right-4' : 'left-4'} bg-black/80 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 pointer-events-none`}>
-                                <div className={`flex items-center gap-2 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                                    <MapPin size={14} className="text-primary" />
-                                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/60">Tower A1, Ajman</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
+const fallbackImg = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop";
 
 export default function App() {
   const [lang, setLang] = useState<'en' | 'ar'>('en');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = translations[lang];
+  const isRtl = lang === 'ar';
+
+  const toggleLang = () => {
+    setLang(lang === 'en' ? 'ar' : 'en');
+  };
+
+  const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
+    const elem = document.getElementById(id);
+    if (elem) {
+      elem.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const whatsappLink = "https://wa.me/971567772004?text=Hello%20SFN%20Fitness!%20I%27d%20like%20to%20inquire%20about%20your%20gym%20memberships%20and%20packages.";
 
   return (
-    <main className={`relative ${lang === 'ar' ? 'font-sans' : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <Navbar lang={lang} setLang={setLang} />
-      <ThreeDHero lang={lang} />
+    <div className={`min-h-screen bg-[#040604] bg-cyber-grid text-slate-100 ${isRtl ? 'dir-rtl text-right' : 'dir-ltr text-left'}`} dir={isRtl ? 'rtl' : 'ltr'}>
       
-      {/* Spacer for transition */}
-      <div className="h-[20vh] bg-gradient-to-b from-black to-dark" />
-      
-      <section id="training" className="relative py-32 px-6 overflow-hidden">
-        {/* Interactive Background Effect */}
-        <TrainingBackground />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-            <motion.div 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ margin: "-100px" }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-20 items-center ${lang === 'ar' ? 'lg:flex-row-reverse' : ''}`}
+      {/* AMBIENT RADIAL LIGHTS */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-10 left-1/4 w-[600px] h-[600px] rounded-full bg-[#74E600]/10 blur-[160px]" />
+        <div className="absolute top-1/2 right-10 w-[500px] h-[500px] rounded-full bg-[#74E600]/06 blur-[150px]" />
+        <div className="absolute bottom-10 left-10 w-[500px] h-[500px] rounded-full bg-[#74E600]/08 blur-[140px]" />
+      </div>
+
+      {/* NAVBAR */}
+      <header className="fixed top-3 left-0 right-0 z-50 px-3 max-w-7xl mx-auto">
+        <nav className="cyber-panel-nav px-5 py-3 flex items-center justify-between">
+          
+          {/* OFFICIAL SFN LOGO & BRAND */}
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
+            <img 
+              src="/sfn_logo.png" 
+              alt="SFN Fitness Official Logo" 
+              className="h-11 sm:h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(116,230,0,0.5)] transform hover:scale-105 transition-transform" 
+            />
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xl sm:text-2xl font-black tracking-wider text-white flex items-center gap-1.5 text-glow-neon">
+                  {t.brand}
+                </span>
+                <span className="w-2 h-2 rounded-full bg-[#74E600] animate-pulse" />
+              </div>
+              <div className="flex items-center gap-2 text-[10px] tracking-widest text-[#74E600] font-tech font-bold -mt-1 uppercase">
+                <span>{t.status}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-7 font-tech font-bold text-xs text-slate-300 tracking-widest uppercase">
+            <button onClick={() => scrollToSection("services")} className="hover:text-[#74E600] transition-colors flex items-center gap-1">
+              <Dumbbell className="w-3.5 h-3.5 text-[#74E600]" /> {t.navTraining}
+            </button>
+            <button onClick={() => scrollToSection("timings")} className="hover:text-[#74E600] transition-colors flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-[#74E600]" /> {t.navTiming}
+            </button>
+            <button onClick={() => scrollToSection("gallery")} className="hover:text-[#74E600] transition-colors flex items-center gap-1">
+              <ImageIcon className="w-3.5 h-3.5 text-[#74E600]" /> {t.navGallery}
+            </button>
+            <button onClick={() => scrollToSection("pricing")} className="hover:text-[#74E600] transition-colors flex items-center gap-1">
+              <Trophy className="w-3.5 h-3.5 text-[#74E600]" /> {t.navPricing}
+            </button>
+            <button onClick={() => scrollToSection("contact")} className="hover:text-[#74E600] transition-colors flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-[#74E600]" /> {t.navContact}
+            </button>
+          </div>
+
+          {/* Actions */}
+          <div className="hidden sm:flex items-center gap-3">
+            <button
+              onClick={toggleLang}
+              className="cyber-badge px-3 py-1.5 text-xs font-extrabold flex items-center gap-1.5 hover:bg-[#74E600] hover:text-black transition-all"
             >
-                <div className={lang === 'ar' ? 'text-right' : ''}>
-                   <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-[0.9] uppercase">
-                    {lang === 'en' ? 'PUSH YOUR' : 'ادفع'} <br/>
-                    <span className="text-primary italic">{lang === 'en' ? 'BOUNDARY.' : 'حدودك.'}</span>
-                   </h2>
-                   <p className={`text-xl text-white/60 font-sans mb-12 max-w-xl ${lang === 'ar' ? 'mr-auto ml-0' : ''}`}>
-                    {lang === 'en' 
-                        ? "Located in the heart of the city, SFN GYM is not just a gym. It's a hub for high-performance athletes and those who dare to be better."
-                        : "يقع SFN جيم في قلب المدينة، وهو ليس مجرد صالة ألعاب رياضية. إنه مركز للرياضيين ذوي الأداء العالي وأولئك الذين يجرؤون على أن يكونوا أفضل."}
-                   </p>
-                   <div className={`flex gap-4 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                     <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex-1">
-                        <div className="text-3xl font-bold text-primary mb-1">1800</div>
-                        <div className="text-xs uppercase tracking-widest text-white/40">{lang === 'en' ? 'Sq Ft Space' : 'قدم مربع'}</div>
-                     </div>
-                     <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex-1">
-                        <div className="text-3xl font-bold text-primary mb-1">24/7</div>
-                        <div className="text-xs uppercase tracking-widest text-white/40">{lang === 'en' ? 'Elite Access' : 'دخول النخبة'}</div>
-                     </div>
-                   </div>
-                </div>
-                <div className="relative aspect-square rounded-3xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                    <img 
-                        src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1470&auto=format&fit=crop" 
-                        alt="Gym atmosphere"
-                        className="object-cover w-full h-full scale-110 hover:scale-100 transition-transform duration-700"
-                    />
-                </div>
+              <Languages className="w-3.5 h-3.5" />
+              <span>{lang === 'en' ? 'العربية // AR' : 'ENGLISH // EN'}</span>
+            </button>
+            
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cyber-button px-5 py-2 text-xs flex items-center gap-2"
+            >
+              <MessageSquare className="w-4 h-4 fill-black text-black" />
+              <span>{t.whatsappBtn}</span>
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="flex sm:hidden items-center gap-2">
+            <button onClick={toggleLang} className="cyber-badge px-2.5 py-1 text-[11px] font-extrabold">
+              {lang === 'en' ? 'AR' : 'EN'}
+            </button>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-slate-200 hover:text-[#74E600]">
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Dropdown Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -10 }}
+              className="sm:hidden mt-2 cyber-card p-5 border border-[#74E600]/40 flex flex-col gap-4 font-tech tracking-widest text-center shadow-2xl"
+            >
+              <button onClick={() => scrollToSection("services")} className="py-2 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10">
+                {t.navTraining}
+              </button>
+              <button onClick={() => scrollToSection("timings")} className="py-2 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10">
+                {t.navTiming}
+              </button>
+              <button onClick={() => scrollToSection("gallery")} className="py-2 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10">
+                {t.navGallery}
+              </button>
+              <button onClick={() => scrollToSection("pricing")} className="py-2 font-bold text-slate-200 hover:text-[#74E600] border-b border-white/10">
+                {t.navPricing}
+              </button>
+              <button onClick={() => scrollToSection("contact")} className="py-2 font-bold text-slate-200 hover:text-[#74E600]">
+                {t.navContact}
+              </button>
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cyber-button py-3 text-center block mt-2"
+              >
+                {t.whatsappBtn}
+              </a>
             </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* HERO SECTION */}
+      <section id="hero" className="relative pt-32 pb-24 md:pt-40 md:pb-32 px-4 max-w-7xl mx-auto z-10 min-h-[92vh] flex flex-col justify-center">
+        
+        {/* Full Hero Vivid Background Image Container */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-3xl border border-[#74E600]/40 shadow-2xl">
+          <img 
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop" 
+            alt="SFN Fitness Gym Floor Background" 
+            className="w-full h-full object-cover filter brightness-105 contrast-110 opacity-80"
+            onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-transparent to-[#040604]/40" />
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          {/* Main Hero Content */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left pl-2 sm:pl-4">
+            
+            {/* Badges */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-wrap gap-2.5 mb-6 font-tech"
+            >
+              <span className="cyber-badge px-3.5 py-1.5 text-xs font-bold flex items-center gap-2 shadow-md">
+                <Trophy className="w-3.5 h-3.5 text-[#74E600]" /> {t.coachBadge}
+              </span>
+              <span className="px-3.5 py-1.5 bg-black/70 border border-white/30 text-slate-100 font-bold text-xs flex items-center gap-2 backdrop-blur-md">
+                <Dumbbell className="w-3.5 h-3.5 text-[#74E600]" /> {t.equipmentBadge}
+              </span>
+            </motion.div>
+
+            {/* Glowing Title */}
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-[5.6rem] font-black tracking-tight leading-[0.95] uppercase mb-6 drop-shadow-2xl"
+            >
+              <span className="block text-white drop-shadow-lg">{t.heroTitle1}</span>
+              <span className="block text-[#74E600] text-glow-neon">
+                {t.heroTitle2}
+              </span>
+            </motion.h1>
+
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-100 max-w-2xl text-base sm:text-lg md:text-xl font-medium leading-relaxed mb-8 bg-black/70 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-2xl"
+            >
+              {t.heroSub}
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 w-full sm:w-auto"
+            >
+              <button 
+                onClick={() => scrollToSection("pricing")}
+                className="cyber-button px-8 py-4 text-base sm:text-lg flex items-center gap-3 w-full sm:w-auto justify-center shadow-xl shadow-[#74E600]/40"
+              >
+                <span>{t.joinNow}</span>
+                <ArrowRight className={`w-5 h-5 ${isRtl ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <button 
+                onClick={() => scrollToSection("services")}
+                className="cyber-button-outline px-8 py-4 text-base sm:text-lg flex items-center gap-3 w-full sm:w-auto justify-center backdrop-blur-md bg-black/60 shadow-lg"
+              >
+                <Dumbbell className="w-5 h-5 text-[#74E600]" />
+                <span>{t.virtualTour}</span>
+              </button>
+            </motion.div>
+
+            {/* Belly Challenge Banner */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-8 w-full sm:w-auto cyber-card px-6 py-4 border-amber-400/60 text-amber-300 font-extrabold text-sm sm:text-base flex items-center gap-3.5 shadow-xl shadow-amber-500/20 backdrop-blur-md bg-black/80"
+            >
+              <Flame className="w-6 h-6 text-amber-400 shrink-0 animate-bounce" />
+              <span>🔥 {t.challengeBadge}</span>
+            </motion.div>
+
+          </div>
+
+          {/* Right Side Visual Glassmorphic Logo & Schedule Panel */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 flex flex-col gap-5 pr-2 sm:pr-4"
+          >
+            {/* Official Logo Display Card */}
+            <div className="cyber-card p-8 border-[#74E600]/60 bg-black/85 backdrop-blur-xl flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 px-3 py-1 bg-[#74E600] text-black font-tech text-[10px] font-black uppercase tracking-widest">
+                OFFICIAL GYM // AJMAN
+              </div>
+
+              <div className="my-4 relative">
+                <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl group-hover:bg-[#74E600]/30 transition-all" />
+                <img 
+                  src="/sfn_logo.png" 
+                  alt="SFN Fitness Official Emblem" 
+                  className="h-36 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)] transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <h3 className="text-2xl font-black text-white uppercase tracking-wider mb-1 text-glow-neon">
+                SFN FITNESS
+              </h3>
+              <p className="text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
+                CITY TOWER A1 // AL NUAIMIA 3, AJMAN
+              </p>
+
+              <div className="w-full pt-4 border-t border-white/10 space-y-2.5 font-tech text-xs">
+                <div className="p-2.5 bg-white/5 border border-white/10 flex items-center justify-between rounded">
+                  <span className="text-slate-300 font-bold uppercase">MORNING MIXED:</span>
+                  <span className="text-[#74E600] font-extrabold">05:30 AM - 12:00 PM</span>
+                </div>
+                <div className="p-2.5 bg-pink-950/40 border border-pink-500/40 flex items-center justify-between rounded">
+                  <span className="text-pink-300 font-bold uppercase">LADIES ONLY:</span>
+                  <span className="text-pink-400 font-extrabold">12:00 PM - 03:30 PM</span>
+                </div>
+                <div className="p-2.5 bg-white/5 border border-white/10 flex items-center justify-between rounded">
+                  <span className="text-slate-300 font-bold uppercase">EVENING MIXED:</span>
+                  <span className="text-[#74E600] font-extrabold">03:30 PM - 02:00 AM</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Ladies Notice */}
+            <div className="cyber-card p-4 border-pink-500/50 bg-black/85 backdrop-blur-md flex items-center justify-between font-tech text-xs text-slate-200 shadow-xl">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-pink-400" /> 
+                <span className="font-bold">LADIES SPECIAL HOURS: <span className="text-pink-400">12:00 PM - 3:30 PM DAILY</span></span>
+              </div>
+              <span className="text-pink-400 font-extrabold uppercase bg-pink-500/10 px-2 py-0.5">100% PRIVATE</span>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 
-      <Features lang={lang} />
-      <PricingSection lang={lang} />
-      <ScheduleSection lang={lang} />
-      <ImageGallery lang={lang} />
-      <Contact lang={lang} />
-      <footer className="py-20 px-6 border-t border-white/10 bg-black">
-        <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 ${lang === 'ar' ? 'md:flex-row-reverse text-right' : ''}`}>
-            <div className={`flex items-center gap-4 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
-                <div className="w-16 h-16 rounded-full bg-black p-1 overflow-hidden flex items-center justify-center border border-white/20">
-                    <img src="/images/logo.png" alt="SFN Gym Logo" className="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <span className="block text-lg font-bold tracking-tighter uppercase leading-none">{lang === 'en' ? 'SFN GYM' : 'SFN جيم'}</span>
-                  <span className="text-[10px] text-primary font-mono tracking-[0.2em] uppercase">{lang === 'en' ? 'Built for Performance' : 'بني للأداء'}</span>
-                </div>
+      {/* PREMIER GYM FACILITIES & SERVICES */}
+      <section id="services" className="py-24 px-4 max-w-7xl mx-auto relative z-10 border-t border-[#74E600]/20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
+            <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 bg-[#74E600]" /> // OUR FACILITIES
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">
+              {t.servicesHeader}
+            </h2>
+          </div>
+          <p className="text-slate-400 text-sm sm:text-base max-w-lg">
+            {t.servicesSub}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          
+          {/* Feature 1: Strength & Free Weights */}
+          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[440px] p-8 shadow-xl">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" 
+                alt="Strength & Free Weights Equipment" 
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
             </div>
-            <div className="text-white/40 text-[10px] font-mono text-center md:text-left uppercase">
-                © 2026 {lang === 'en' ? 'SFN GYM. BUILT FOR PERFORMANCE.' : 'SFN جيم. بني للأداء.'}
+
+            <div className="relative z-10 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="w-14 h-14 bg-[#74E600] text-black font-bold border border-black flex items-center justify-center mb-6 shadow-lg shadow-[#74E600]/40">
+                  <Dumbbell className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s1Sub}</span>
+                <h3 className="text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s1Title}</h3>
+                <p className="text-slate-100 text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3.5 border border-white/10">{t.s1Desc}</p>
+              </div>
+              <div className="pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/60 backdrop-blur-sm px-3 py-2">
+                <span>HEAVY IRON & SQUAT RACKS</span>
+                <ChevronRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />
+              </div>
             </div>
+          </div>
+
+          {/* Feature 2: Personal Training by Coach Sharafu */}
+          <div className="relative overflow-hidden cyber-card-glow group flex flex-col justify-between min-h-[440px] p-8 shadow-xl">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop" 
+                alt="Personal Training & Coaching" 
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
+            </div>
+
+            <div className="relative z-10 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="w-14 h-14 bg-amber-400 text-black font-bold border border-black flex items-center justify-center mb-6 shadow-lg shadow-amber-400/40">
+                  <Trophy className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-tech text-amber-400 uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s2Sub}</span>
+                <h3 className="text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s2Title}</h3>
+                <p className="text-slate-100 text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3.5 border border-white/10">{t.s2Desc}</p>
+              </div>
+              <div className="pt-4 border-t border-amber-400/30 flex items-center justify-between font-tech text-xs font-extrabold text-amber-300 bg-black/60 backdrop-blur-sm px-3 py-2">
+                <span>1-ON-1 TAILORED COACHING</span>
+                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              </div>
+            </div>
+          </div>
+
+          {/* Feature 3: Cardio & Endurance */}
+          <div className="relative overflow-hidden cyber-card group border-[#74E600]/40 hover:border-[#74E600] flex flex-col justify-between min-h-[440px] p-8 shadow-xl">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1200&auto=format&fit=crop" 
+                alt="Cardio Equipment & Treadmills" 
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
+                onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
+            </div>
+
+            <div className="relative z-10 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="w-14 h-14 bg-[#74E600] text-black font-bold border border-black flex items-center justify-center mb-6 shadow-lg shadow-[#74E600]/40">
+                  <Flame className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-tech text-[#74E600] uppercase font-extrabold tracking-widest block mb-1 drop-shadow-md">{t.s3Sub}</span>
+                <h3 className="text-2xl font-black text-white mb-3 uppercase tracking-wide drop-shadow-lg">{t.s3Title}</h3>
+                <p className="text-slate-100 text-sm font-medium leading-relaxed mb-6 bg-black/60 backdrop-blur-sm p-3.5 border border-white/10">{t.s3Desc}</p>
+              </div>
+              <div className="pt-4 border-t border-white/20 flex items-center justify-between font-tech text-xs font-extrabold text-[#74E600] bg-black/60 backdrop-blur-sm px-3 py-2">
+                <span>TREADMILLS & FAT BURN</span>
+                <ChevronRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Featured Card: Exclusive Ladies Gym */}
+        <div className="relative overflow-hidden cyber-card border-pink-500/60 group shadow-xl">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop" 
+              alt="Ladies Private Gym Studio" 
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-110"
+              onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-black/30" />
+          </div>
+
+          <div className="relative z-10 p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 text-pink-400 font-tech text-xs font-bold uppercase tracking-widest mb-2 drop-shadow-md">
+                <Shield className="w-4 h-4" /> <span>{t.s4Sub}</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4 drop-shadow-lg">{t.s4Title}</h3>
+              <p className="text-slate-100 text-base sm:text-lg font-medium leading-relaxed bg-black/60 backdrop-blur-sm p-4 border border-pink-500/20">{t.s4Desc}</p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto shrink-0">
+              <div className="p-4 bg-black/70 border border-pink-500/50 text-center font-tech backdrop-blur-md shadow-lg">
+                <span className="block text-xs text-pink-300 font-bold uppercase">DAILY LADIES HOURS</span>
+                <span className="block text-xl font-black text-pink-400">12:00 PM - 03:30 PM</span>
+              </div>
+              <button 
+                onClick={() => scrollToSection("timings")}
+                className="px-6 py-4 bg-pink-600 hover:bg-pink-500 text-white font-tech font-bold text-xs uppercase tracking-wider transition-colors w-full sm:w-auto shadow-lg shadow-pink-600/40"
+              >
+                VIEW SCHEDULE
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* OPERATION SCHEDULE WITH DYNAMICALLY ANIMATED ICONS */}
+      <section id="timings" className="py-24 px-4 bg-cyber-radial border-y border-[#74E600]/30 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
+              // TIMING SCHEDULE
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
+              {t.timingHeader}
+            </h2>
+            <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
+              {t.timingSub}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            
+            {/* Mixed Hours (Orbital Spinning Clock Icon) */}
+            <div className="cyber-card p-8 flex flex-col items-center text-center group border-[#74E600]/40 hover:border-[#74E600] transition-colors">
+              <div className="w-28 h-28 rounded-full border-2 border-[#74E600] bg-black/80 shadow-lg shadow-[#74E600]/40 flex items-center justify-center relative mb-6">
+                <div className="absolute inset-1.5 rounded-full border border-dashed border-[#74E600]/60 animate-spin" style={{ animationDuration: '30s' }} />
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                >
+                  <Clock className="w-11 h-11 text-[#74E600] drop-shadow-[0_0_10px_rgba(116,230,0,0.6)]" />
+                </motion.div>
+                <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-[#74E600] text-black font-tech text-[10px] font-black uppercase shadow-md">
+                  5:30 AM - 2:00 AM
+                </div>
+              </div>
+              <h3 className="text-xl font-extrabold text-white uppercase tracking-wider mb-2">{t.mixedTitle}</h3>
+              <span className="text-lg font-tech font-extrabold text-[#74E600] tracking-wider block mb-1">{t.mixedTime1}</span>
+              <span className="text-lg font-tech font-extrabold text-[#74E600] tracking-wider block mb-4">{t.mixedTime2}</span>
+              <p className="text-xs text-slate-400 leading-relaxed">{t.mixedDesc}</p>
+            </div>
+
+            {/* Ladies Exclusive Time (Pulsing Heartbeat Icon) */}
+            <div className="cyber-card p-8 flex flex-col items-center text-center group border-pink-500/60 shadow-xl shadow-pink-500/10 bg-gradient-to-b from-black via-pink-950/20 to-black">
+              <div className="w-28 h-28 rounded-full border-2 border-pink-500 bg-black/80 shadow-lg shadow-pink-500/50 flex items-center justify-center relative mb-6">
+                <div className="absolute inset-1.5 rounded-full border border-dashed border-pink-400/60 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
+                <motion.div 
+                  animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Heart className="w-11 h-11 text-pink-400 fill-pink-500/40 drop-shadow-[0_0_12px_rgba(244,114,182,0.8)]" />
+                </motion.div>
+                <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-pink-500 text-white font-tech text-[10px] font-black uppercase shadow-md">
+                  12:00 PM - 3:30 PM
+                </div>
+              </div>
+              <h3 className="text-xl font-extrabold text-white uppercase tracking-wider mb-2">{t.ladiesTitle}</h3>
+              <span className="text-2xl font-tech font-black text-pink-400 tracking-wider block mb-5">{t.ladiesTime}</span>
+              <p className="text-xs text-slate-300 leading-relaxed">{t.ladiesDesc}</p>
+            </div>
+
+            {/* VIP Personal Training (Floating Hover & Shimmer Trophy Icon) */}
+            <div className="cyber-card p-8 flex flex-col items-center text-center group border-amber-400/40 hover:border-amber-400 transition-colors">
+              <div className="w-28 h-28 rounded-full border-2 border-amber-400 bg-black/80 shadow-lg shadow-amber-400/30 flex items-center justify-center relative mb-6">
+                <div className="absolute inset-1.5 rounded-full border border-dashed border-amber-400/60 animate-spin" style={{ animationDuration: '40s' }} />
+                <motion.div 
+                  animate={{ y: [0, -6, 0], rotate: [-4, 4, -4] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Trophy className="w-11 h-11 text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" />
+                </motion.div>
+                <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-amber-400 text-black font-tech text-[10px] font-black uppercase shadow-md">
+                  BY APPOINTMENT
+                </div>
+              </div>
+              <h3 className="text-xl font-extrabold text-white uppercase tracking-wider mb-2">{t.ptTitle}</h3>
+              <span className="text-lg font-tech font-extrabold text-amber-300 tracking-wider block mb-5">{t.ptTime}</span>
+              <p className="text-xs text-slate-400 leading-relaxed">{t.ptDesc}</p>
+            </div>
+
+          </div>
+
+          <div className="cyber-card p-5 border-[#74E600]/30 flex items-center justify-center gap-3 font-tech text-xs sm:text-sm font-bold text-[#74E600] uppercase tracking-wider text-center">
+            <Check className="w-5 h-5 text-[#74E600] shrink-0" />
+            <span>{t.dailyNote}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* GALLERY / INTERACTIVE GYM FEED (PLACEHOLDERS READY FOR REAL ORIGINAL PHOTOS) */}
+      <section id="gallery" className="py-24 px-4 max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
+            // MEDIA GALLERY
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
+            {t.galleryHeader}
+          </h2>
+          <p className="text-slate-400 text-base sm:text-lg">
+            {t.gallerySub}
+          </p>
+        </div>
+
+        {/* Clean Structured Placeholders for User's Original Photos */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((index) => (
+            <div 
+              key={index} 
+              className="relative h-72 border-2 border-dashed border-[#74E600]/40 bg-black/60 hover:border-[#74E600] transition-colors p-6 flex flex-col items-center justify-center text-center group cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-full bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] mb-4 group-hover:scale-110 transition-transform">
+                <Camera className="w-8 h-8" />
+              </div>
+              <span className="font-tech text-xs font-bold text-[#74E600] uppercase tracking-widest mb-1">
+                PHOTO SLOT 0{index}
+              </span>
+              <span className="font-extrabold text-sm text-white uppercase tracking-wide mb-2">
+                {t.uploadNotice}
+              </span>
+              <p className="text-xs text-slate-400 font-tech">
+                {t.uploadDesc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SUBSCRIPTION PACKAGES */}
+      <section id="pricing" className="py-24 px-4 bg-gradient-to-b from-[#040604] via-[#0b120b] to-[#040604] border-t border-[#74E600]/30 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
+              // MEMBERSHIP RATES
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
+              {t.pricingHeader}
+            </h2>
+            <p className="text-slate-400 text-base sm:text-lg">
+              {t.pricingSub}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {packages.map((pkg) => {
+              const title = t[pkg.titleKey as keyof typeof t];
+              const desc = t[pkg.descKey as keyof typeof t];
+              const isFeatured = pkg.featured;
+
+              return (
+                <div 
+                  key={pkg.id}
+                  className={`p-8 flex flex-col justify-between transition-all duration-300 ${
+                    isFeatured 
+                      ? 'cyber-card-glow transform lg:-translate-y-3 shadow-2xl shadow-[#74E600]/20' 
+                      : 'cyber-card border-[#74E600]/30 hover:border-[#74E600]'
+                  }`}
+                >
+                  {isFeatured && (
+                    <div className="mb-4 bg-[#74E600] text-black py-1 px-4 font-tech text-xs font-black uppercase tracking-widest text-center shadow-md shadow-[#74E600]/40">
+                      ★ {t.popularTag} ★
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="flex items-center justify-between mb-4 font-tech text-xs border-b border-white/10 pb-3">
+                      <span className="text-[#74E600] font-bold">{pkg.code}</span>
+                      <span className="text-slate-400 uppercase">ACCESS: FULL</span>
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white uppercase tracking-wide mb-2">
+                      {title}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm h-12 mb-6 font-normal leading-relaxed">
+                      {desc}
+                    </p>
+
+                    <div className="py-5 bg-black/70 border border-[#74E600]/30 px-5 mb-8 flex items-baseline justify-between">
+                      <div>
+                        <span className="text-5xl font-tech font-extrabold text-white tracking-tight">{pkg.price}</span>
+                        <span className="text-sm font-bold text-[#74E600] ml-2 font-tech">{t.currency}</span>
+                      </div>
+                      <Dumbbell className="w-6 h-6 text-[#74E600]" />
+                    </div>
+
+                    <ul className="space-y-3.5 mb-8 font-tech text-xs sm:text-sm text-slate-300 tracking-wide">
+                      <li className="flex items-center gap-3">
+                        <Check className="w-4 h-4 text-[#74E600] shrink-0" />
+                        <span>FULL GYM ACCESS & FREE WEIGHTS</span>
+                      </li>
+                      <li className="flex items-center gap-3">
+                        <Check className="w-4 h-4 text-[#74E600] shrink-0" />
+                        <span>MIXED & LADIES EXCLUSIVE TIMINGS</span>
+                      </li>
+                      <li className="flex items-center gap-3">
+                        <Check className="w-4 h-4 text-[#74E600] shrink-0" />
+                        <span>TRAINER ORIENTATION ON FLOOR</span>
+                      </li>
+                      {isFeatured && (
+                        <li className="flex items-center gap-3 font-extrabold text-amber-300 bg-amber-400/10 p-2 border border-amber-400/30">
+                          <Flame className="w-4 h-4 text-amber-400 shrink-0" />
+                          <span>🔥 3-MONTH BELLY REMOVAL CHALLENGE!</span>
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+
+                  <a 
+                    href={`https://wa.me/971567772004?text=I%20want%20to%20subscribe%20to%20the%20${pkg.code}%20package%20(${pkg.price}%20AED)%20at%20SFN%20Fitness!`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full py-4 text-center text-sm font-bold uppercase tracking-widest transition-all block ${
+                      isFeatured 
+                        ? 'cyber-button' 
+                        : 'cyber-button-outline'
+                    }`}
+                  >
+                    {t.choosePlan}
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-16 text-center font-tech">
+            <p className="text-amber-400 text-base sm:text-lg font-extrabold tracking-widest text-glow-neon">
+              {t.couplePromo}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT & LOCATION */}
+      <section id="contact" className="py-24 px-4 max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
+            // TELEMETRY & LOCATION
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
+            {t.contactHeader}
+          </h2>
+          <p className="text-slate-400 text-base sm:text-lg">
+            {t.contactSub}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* Contact Details */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-4 font-tech">
+            
+            <a 
+              href="tel:067160931" 
+              className="cyber-card p-5 flex items-center gap-4 group hover:border-[#74E600]"
+            >
+              <div className="w-12 h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0">
+                <Phone className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.phoneLabel}</span>
+                <span className="text-lg font-black text-white group-hover:text-[#74E600] transition-colors">06 716 0931</span>
+              </div>
+            </a>
+
+            <a 
+              href={whatsappLink} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cyber-card p-5 flex items-center gap-4 border-[#74E600] bg-[#74E600]/10 group"
+            >
+              <div className="w-12 h-12 bg-[#74E600] flex items-center justify-center text-black font-black shrink-0 shadow-lg shadow-[#74E600]/40">
+                <MessageSquare className="w-6 h-6 fill-black" />
+              </div>
+              <div className="flex-1">
+                <span className="text-xs text-[#74E600] font-extrabold uppercase tracking-widest block">{t.whatsappLabel}</span>
+                <span className="text-lg font-black text-white">+971 56 777 2004</span>
+              </div>
+              <span className="text-[10px] font-extrabold bg-[#74E600] text-black px-2.5 py-1 uppercase">
+                24/7 LIVE
+              </span>
+            </a>
+
+            <a 
+              href="mailto:sfn.fitness.ae@gmail.com" 
+              className="cyber-card p-5 flex items-center gap-4 group hover:border-[#74E600]"
+            >
+              <div className="w-12 h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] group-hover:bg-[#74E600] group-hover:text-black transition-all shrink-0">
+                <Mail className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.emailLabel}</span>
+                <span className="text-sm font-bold text-white break-all">sfn.fitness.ae@gmail.com</span>
+              </div>
+            </a>
+
+            <div className="cyber-card p-5 flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] shrink-0">
+                <MapPin className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.locationLabel}</span>
+                <span className="text-xs font-bold text-slate-200 uppercase">{t.addressValue}</span>
+              </div>
+            </div>
+
+            <a 
+              href="https://instagram.com/sfn.gym" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cyber-card p-5 flex items-center gap-4 group hover:border-pink-500"
+            >
+              <div className="w-12 h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 text-white flex items-center justify-center font-black shrink-0">
+                @
+              </div>
+              <div>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest block">{t.socialLabel}</span>
+                <span className="text-lg font-black text-white group-hover:text-pink-400 transition-colors">@SFN.GYM</span>
+              </div>
+            </a>
+
+          </div>
+
+          {/* Google Maps Embed */}
+          <div className="lg:col-span-7 cyber-card p-3 border-[#74E600]/40 overflow-hidden min-h-[380px] flex flex-col">
+            <div className="w-full flex-1 overflow-hidden relative min-h-[360px] border border-white/10">
+              <iframe
+                title="SFN Fitness Location Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.227393437142!2d55.44062141501314!3d25.393845983805335!2m3!1f0!2f0!3f0!3m2!1f1024!2f1024!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f583569dc1e7d%3A0xc0c40eecabdc6b3!2sCity%20Tower%2C%20Ajman!5e0!3m2!1sen!2sae!4v1716912345678!5m2!1sen!2sae"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: '360px' }}
+                allowFullScreen={false}
+                loading="lazy"
+                className="w-full h-full filter contrast-125 brightness-[80%] invert-[90%] hue-rotate-[90deg] grayscale-[30%]"
+              />
+              <div className="absolute top-4 left-4 bg-black/90 border border-[#74E600] px-4 py-2 font-tech text-xs font-bold text-[#74E600] flex items-center gap-2 shadow-xl">
+                <span className="w-2 h-2 bg-[#74E600] animate-ping" /> TOWER A1 // CITY TOWER, AJMAN
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-12 border-t border-[#74E600]/30 bg-black text-slate-500 font-tech text-center text-xs tracking-widest">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3 font-black text-[#74E600]">
+            <img src="/sfn_logo.png" alt="SFN Fitness Logo" className="h-8 w-auto object-contain" />
+            <span>{t.brand}</span>
+          </div>
+          <p>{t.footerText}</p>
+          <div className="flex items-center gap-6 font-bold text-slate-400">
+            <button onClick={() => scrollToSection("hero")} className="hover:text-[#74E600] uppercase">TOP [↑]</button>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-[#74E600] uppercase">SUPPORT [💬]</a>
+          </div>
         </div>
       </footer>
-    </main>
+
+    </div>
   );
 }
