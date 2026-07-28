@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Chakra+Petch:wght@700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-tech: 'Share Tech Mono', monospace;
   --font-display: 'Outfit', sans-serif;
+  --font-orbitron: 'Orbitron', sans-serif;
   --color-neon-green: #74E600;
 }
 
@@ -28,6 +29,14 @@ html, body {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
+}
+
+/* SFN BRAND MATCHING TYPOGRAPHY */
+.font-sfn-brand {
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* GPU-ACCELERATED MOBILE SAFE CARDS */
@@ -85,7 +94,7 @@ html, body {
 .cyber-button {
   background-color: #74E600;
   color: #000000;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Orbitron', 'Share Tech Mono', monospace;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -105,7 +114,7 @@ html, body {
   background-color: rgba(116, 230, 0, 0.05);
   color: #74E600;
   border: 1px solid #74E600;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Orbitron', 'Share Tech Mono', monospace;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -139,7 +148,7 @@ html, body {
 }
 
 .text-glow-neon {
-  text-shadow: 0 0 12px rgba(116, 230, 0, 0.6);
+  text-shadow: 0 0 14px rgba(116, 230, 0, 0.7);
 }
 
 /* ARABIC RTL FIXES */
