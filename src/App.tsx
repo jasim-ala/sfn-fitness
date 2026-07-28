@@ -235,7 +235,7 @@ export default function App() {
       <header className="fixed top-2 sm:top-3 left-0 right-0 z-50 px-2 sm:px-4 max-w-7xl mx-auto">
         <nav className="cyber-panel-nav px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between">
           
-          {/* STATIC CLEAN SFN EMBLEM & BRAND HEADER */}
+          {/* SFN EMBLEM & MATCHING LOGO TYPOGRAPHY */}
           <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
             <img 
               src="/sfn_logo.png" 
@@ -244,14 +244,23 @@ export default function App() {
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <img 
-                  src="/sfn_text_logo.png" 
-                  alt="SFN FITNESS" 
-                  className="h-5 sm:h-7 md:h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.4)]"
-                />
+                {lang === 'en' ? (
+                  <div className="flex flex-col justify-center leading-none" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    <span className="text-base sm:text-xl font-black tracking-[0.14em] text-white text-glow-neon uppercase">
+                      SFN
+                    </span>
+                    <span className="text-[8px] sm:text-[10px] font-black tracking-[0.32em] text-white/95 uppercase -mt-0.5">
+                      FITNESS
+                    </span>
+                  </div>
+                ) : (
+                  <span className="font-sfn-brand text-base sm:text-2xl font-black tracking-wider text-white flex items-center gap-1 text-glow-neon" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    {t.brand}
+                  </span>
+                )}
                 <span className="w-2 h-2 rounded-full bg-[#74E600] animate-pulse" />
               </div>
-              <div className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-widest text-[#74E600] font-tech font-bold -mt-0.5 uppercase">
+              <div className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-widest text-[#74E600] font-tech font-bold mt-0.5 uppercase">
                 <span>{t.status}</span>
               </div>
             </div>
@@ -458,7 +467,6 @@ export default function App() {
                 OFFICIAL GYM // AJMAN
               </div>
 
-              {/* CLEAN EMBLEM DISPLAY */}
               <div className="my-3 sm:my-4 relative flex items-center justify-center">
                 <div className="absolute -inset-4 bg-[#74E600]/20 rounded-full blur-xl pointer-events-none" />
                 <img 
@@ -468,11 +476,16 @@ export default function App() {
                 />
               </div>
 
-              <img 
-                src="/sfn_text_logo.png" 
-                alt="SFN FITNESS" 
-                className="h-7 sm:h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(116,230,0,0.5)] mb-1"
-              />
+              {/* TWO-TIER STYLED BRAND TYPOGRAPHY MATCHING IMAGE LOGO */}
+              <div className="flex flex-col justify-center items-center leading-none my-2 font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                <span className="text-xl sm:text-3xl font-black tracking-[0.16em] text-white text-glow-neon uppercase">
+                  SFN
+                </span>
+                <span className="text-[10px] sm:text-xs font-black tracking-[0.38em] text-white/95 uppercase mt-1">
+                  FITNESS
+                </span>
+              </div>
+
               <p className="text-[10px] sm:text-xs font-tech text-[#74E600] font-bold tracking-widest uppercase mb-4">
                 CITY TOWER A1 // AL NUAIMIA 3, AJMAN
               </p>
@@ -1055,7 +1068,14 @@ export default function App() {
               alt="SFN Fitness Logo" 
               className="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(116,230,0,0.4)]" 
             />
-            <img src="/sfn_text_logo.png" alt="SFN FITNESS" className="h-5 sm:h-6 w-auto object-contain" />
+            <div className="flex flex-col justify-center leading-none text-left font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              <span className="text-sm font-black tracking-[0.14em] text-white uppercase">
+                SFN
+              </span>
+              <span className="text-[7px] font-black tracking-[0.32em] text-white/90 uppercase">
+                FITNESS
+              </span>
+            </div>
           </div>
           <p className="text-[10px] sm:text-xs">{t.footerText}</p>
           <div className="flex items-center gap-6 font-bold text-slate-400 text-[10px] sm:text-xs">
