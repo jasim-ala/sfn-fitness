@@ -206,6 +206,7 @@ const googleMapsDirectUrl = "https://maps.google.com/?q=City+Tower+Al+Nuaimia+3+
 export default function App() {
   const [lang, setLang] = useState<'en' | 'ar'>('en');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const t = translations[lang];
   const isRtl = lang === 'ar';
 
@@ -238,8 +239,8 @@ export default function App() {
   return (
     <div className={`min-h-screen bg-[#040604] bg-cyber-grid text-slate-100 ${isRtl ? 'dir-rtl text-right' : 'dir-ltr text-left'}`} dir={isRtl ? 'rtl' : 'ltr'}>
       
-      {/* AMBIENT RADIAL LIGHTS */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {/* AMBIENT RADIAL LIGHTS - SCOPED ABSOLUTE TO HERO TO AVOID FULL-PAGE COMPOSITOR OVERDRAW */}
+      <div className="absolute top-0 left-0 right-0 h-[700px] pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-10 left-1/4 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#74E600]/10 blur-[100px] sm:blur-[160px]" />
       </div>
 
@@ -253,6 +254,7 @@ export default function App() {
               src="/sfn_logo.png" 
               alt="SFN Fitness Emblem Logo" 
               className="h-8 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(116,230,0,0.5)]" 
+              decoding="async"
             />
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
@@ -375,9 +377,13 @@ export default function App() {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-2xl sm:rounded-3xl border border-[#74E600]/40 shadow-2xl bg-[#091209]">
           <img 
             src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop" 
+            srcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=70&w=480&auto=format&fit=crop 480w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=800&auto=format&fit=crop 800w"
+            sizes="(max-width: 640px) 100vw, 800px"
             alt="SFN Fitness Gym Floor Background" 
             className="w-full h-full object-cover filter brightness-105 contrast-110 opacity-80"
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-transparent" />
@@ -389,26 +395,18 @@ export default function App() {
           {/* Main Hero Content */}
           <div className="lg:col-span-7 flex flex-col items-start text-left pl-1 sm:pl-4">
             
-            {/* Badges */}
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-wrap gap-2 mb-4 sm:mb-6 font-tech"
-            >
+            {/* Badges - Direct Paint for Instant Mobile First Contentful Paint */}
+            <div className="flex flex-wrap gap-2 mb-4 sm:mb-6 font-tech">
               <span className="cyber-badge px-3 py-1 text-[11px] sm:text-xs font-bold flex items-center gap-1.5 shadow-md">
                 <Trophy className="w-3.5 h-3.5 text-[#74E600]" /> {t.coachBadge}
               </span>
               <span className="px-3 py-1 bg-black/70 border border-white/30 text-slate-100 font-bold text-[11px] sm:text-xs flex items-center gap-1.5 backdrop-blur-md rounded-md">
                 <Dumbbell className="w-3.5 h-3.5 text-[#74E600]" /> {t.equipmentBadge}
               </span>
-            </motion.div>
+            </div>
 
             {/* Title with SFN Brand Font */}
-            <motion.h1 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <h1 
               className="font-sfn-brand text-3xl xs:text-4xl sm:text-7xl md:text-8xl lg:text-[5.6rem] font-black tracking-wider leading-[0.95] uppercase mb-4 sm:mb-6 drop-shadow-2xl"
               style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
@@ -416,24 +414,14 @@ export default function App() {
               <span className="block text-[#74E600] text-glow-neon">
                 {t.heroTitle2}
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-100 max-w-2xl text-xs sm:text-lg md:text-xl font-medium leading-relaxed mb-6 sm:mb-8 bg-black/80 p-3.5 sm:p-4 rounded-xl border border-white/20 shadow-2xl"
-            >
+            <p className="text-slate-100 max-w-2xl text-xs sm:text-lg md:text-xl font-medium leading-relaxed mb-6 sm:mb-8 bg-black/80 p-3.5 sm:p-4 rounded-xl border border-white/20 shadow-2xl">
               {t.heroSub}
-            </motion.p>
+            </p>
 
             {/* Action Buttons */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full"
-            >
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full">
               <button 
                 onClick={() => scrollToSection("pricing")}
                 className="cyber-button px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-lg flex items-center gap-3 justify-center shadow-xl shadow-[#74E600]/40 w-full sm:w-auto"
@@ -451,28 +439,18 @@ export default function App() {
                 <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5 text-[#74E600]" />
                 <span>{t.virtualTour}</span>
               </button>
-            </motion.div>
+            </div>
 
             {/* Belly Challenge Banner */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-6 sm:mt-8 w-full sm:w-auto cyber-card px-4 sm:px-6 py-3 sm:py-4 border-amber-400/60 text-amber-300 font-extrabold text-xs sm:text-base flex items-center gap-3 shadow-xl shadow-amber-500/20 bg-black/90"
-            >
+            <div className="mt-6 sm:mt-8 w-full sm:w-auto cyber-card px-4 sm:px-6 py-3 sm:py-4 border-amber-400/60 text-amber-300 font-extrabold text-xs sm:text-base flex items-center gap-3 shadow-xl shadow-amber-500/20 bg-black/90">
               <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 shrink-0 animate-bounce" />
               <span className="font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>🔥 {t.challengeBadge}</span>
-            </motion.div>
+            </div>
 
           </div>
 
           {/* Right Side Visual Logo & Schedule Panel */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 pr-1 sm:pr-4"
-          >
+          <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 pr-1 sm:pr-4">
             {/* Official Logo Display Card */}
             <div className="cyber-card p-6 sm:p-8 border-[#74E600]/60 bg-black/90 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#74E600] text-black font-tech text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
@@ -485,6 +463,8 @@ export default function App() {
                   src="/sfn_logo.png" 
                   alt="SFN Fitness Official Emblem" 
                   className="h-28 sm:h-44 w-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(116,230,0,0.6)]"
+                  loading="eager"
+                  decoding="async"
                 />
               </div>
 
@@ -526,13 +506,13 @@ export default function App() {
               </div>
               <span className="text-pink-400 font-extrabold uppercase bg-pink-500/10 px-2 py-0.5 text-[9px] sm:text-[10px]">100% PRIVATE</span>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </section>
 
       {/* PREMIER GYM FACILITIES & SERVICES */}
-      <section id="services" className="py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10 border-t border-[#74E600]/20">
+      <section id="services" className="content-visibility-auto py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10 border-t border-[#74E600]/20">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-6">
           <div className="max-w-2xl">
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 flex items-center gap-2">
@@ -560,6 +540,7 @@ export default function App() {
                 alt="Strength & Free Weights Equipment" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -594,6 +575,7 @@ export default function App() {
                 alt="Personal Training & Coaching" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -628,6 +610,7 @@ export default function App() {
                 alt="Cardio Equipment & Treadmills" 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter brightness-90 contrast-110"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#040604] via-[#040604]/50 to-black/20" />
@@ -664,6 +647,7 @@ export default function App() {
               alt="Ladies Private Gym Studio" 
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-110"
               loading="lazy"
+              decoding="async"
               onError={(e) => { (e.target as HTMLImageElement).src = fallbackImg; }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#040604]/90 via-[#040604]/60 to-black/30" />
@@ -701,7 +685,7 @@ export default function App() {
       </section>
 
       {/* OPERATION SCHEDULE WITH DYNAMICALLY ANIMATED ICONS */}
-      <section id="timings" className="py-16 sm:py-24 px-3 sm:px-4 bg-cyber-radial border-y border-[#74E600]/30 relative z-10">
+      <section id="timings" className="content-visibility-auto py-16 sm:py-24 px-3 sm:px-4 bg-cyber-radial border-y border-[#74E600]/30 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
@@ -724,12 +708,9 @@ export default function App() {
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-[#74E600]/40 hover:border-[#74E600] transition-colors bg-[#081008]">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[#74E600] bg-black/90 shadow-lg shadow-[#74E600]/40 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-[#74E600]/60 animate-spin" style={{ animationDuration: '30s' }} />
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                >
-                  <Clock className="w-9 h-9 sm:w-11 sm:h-11 text-[#74E600] drop-shadow-[0_0_10px_rgba(116,230,0,0.6)]" />
-                </motion.div>
+                <div className="animate-gpu-spin">
+                  <Clock className="w-9 h-9 sm:w-11 sm:h-11 text-[#74E600]" />
+                </div>
                 <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-[#74E600] text-black font-tech text-[10px] font-black uppercase shadow-md">
                   5:30 AM - 2:00 AM
                 </div>
@@ -744,12 +725,9 @@ export default function App() {
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-pink-500/60 shadow-xl shadow-pink-500/10 bg-gradient-to-b from-black via-pink-950/30 to-black">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-pink-500 bg-black/90 shadow-lg shadow-pink-500/50 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-pink-400/60 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
-                <motion.div 
-                  animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Heart className="w-9 h-9 sm:w-11 sm:h-11 text-pink-400 fill-pink-500/40 drop-shadow-[0_0_12px_rgba(244,114,182,0.8)]" />
-                </motion.div>
+                <div className="animate-gpu-pulse">
+                  <Heart className="w-9 h-9 sm:w-11 sm:h-11 text-pink-400 fill-pink-500/40" />
+                </div>
                 <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-pink-500 text-white font-tech text-[10px] font-black uppercase shadow-md">
                   12:00 PM - 3:30 PM
                 </div>
@@ -763,12 +741,9 @@ export default function App() {
             <div className="cyber-card p-6 sm:p-8 flex flex-col items-center text-center group border-amber-400/40 hover:border-amber-400 transition-colors bg-[#100e08]">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-400 bg-black/90 shadow-lg shadow-amber-400/30 flex items-center justify-center relative mb-6">
                 <div className="absolute inset-1.5 rounded-full border border-dashed border-amber-400/60 animate-spin" style={{ animationDuration: '40s' }} />
-                <motion.div 
-                  animate={{ y: [0, -6, 0], rotate: [-4, 4, -4] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Trophy className="w-9 h-9 sm:w-11 sm:h-11 text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" />
-                </motion.div>
+                <div className="animate-gpu-sway">
+                  <Trophy className="w-9 h-9 sm:w-11 sm:h-11 text-amber-400" />
+                </div>
                 <div className="absolute -bottom-2 px-3 py-0.5 rounded bg-amber-400 text-black font-tech text-[10px] font-black uppercase shadow-md">
                   BY APPOINTMENT
                 </div>
@@ -788,7 +763,7 @@ export default function App() {
       </section>
 
       {/* GALLERY / INTERACTIVE GYM FEED */}
-      <section id="gallery" className="py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10">
+      <section id="gallery" className="content-visibility-auto py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // MEDIA GALLERY
@@ -829,7 +804,7 @@ export default function App() {
       </section>
 
       {/* SUBSCRIPTION PACKAGES */}
-      <section id="pricing" className="py-16 sm:py-24 px-3 sm:px-4 bg-gradient-to-b from-[#040604] via-[#0b120b] to-[#040604] border-t border-[#74E600]/30 relative z-10">
+      <section id="pricing" className="content-visibility-auto py-16 sm:py-24 px-3 sm:px-4 bg-gradient-to-b from-[#040604] via-[#0b120b] to-[#040604] border-t border-[#74E600]/30 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
             <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
@@ -941,7 +916,7 @@ export default function App() {
       </section>
 
       {/* CONTACT & LOCATION MAP */}
-      <section id="contact" className="py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10">
+      <section id="contact" className="content-visibility-auto py-16 sm:py-24 px-3 sm:px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
           <span className="text-xs font-tech font-extrabold text-[#74E600] tracking-widest uppercase mb-2 block">
             // TELEMETRY & LOCATION
@@ -1053,19 +1028,50 @@ export default function App() {
               </a>
             </div>
 
-            {/* Embedded Google Map */}
+            {/* Embedded Google Map (On-demand to save 1.5MB on mobile devices) */}
             <div className="w-full flex-1 overflow-hidden relative min-h-[280px] sm:min-h-[340px] border border-white/10 rounded-b-md">
-              <iframe
-                title="SFN Fitness Location Map"
-                src="https://maps.google.com/maps?q=City%20Tower%20Al%20Nuaimia%203%20Ajman&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: '280px', width: '100%' }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full rounded-b-md"
-              />
+              {mapLoaded ? (
+                <iframe
+                  title="SFN Fitness Location Map"
+                  src="https://maps.google.com/maps?q=City%20Tower%20Al%20Nuaimia%203%20Ajman&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: '280px', width: '100%' }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full rounded-b-md"
+                />
+              ) : (
+                <div className="w-full h-full min-h-[280px] sm:min-h-[340px] flex flex-col items-center justify-center bg-[#070d07] text-center p-6 gap-3">
+                  <div className="w-12 h-12 rounded-full bg-[#74E600]/10 border border-[#74E600]/40 flex items-center justify-center text-[#74E600] mb-1">
+                    <MapPin className="w-6 h-6 animate-pulse" />
+                  </div>
+                  <span className="font-tech text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                    SFN FITNESS // TOWER A1, CITY TOWER, AJMAN
+                  </span>
+                  <p className="text-[11px] text-slate-400 font-tech max-w-sm">
+                    Tap below to load the live embedded map or open directly in the Google Maps navigation app.
+                  </p>
+                  <div className="flex flex-wrap gap-2.5 justify-center mt-2">
+                    <button 
+                      onClick={() => setMapLoaded(true)}
+                      className="cyber-button px-4 py-2 text-xs font-tech font-bold"
+                    >
+                      LOAD INTERACTIVE MAP
+                    </button>
+                    <a 
+                      href={googleMapsDirectUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cyber-button-outline px-4 py-2 text-xs font-tech font-bold flex items-center gap-1.5"
+                    >
+                      <span>OPEN MAPS APP</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -1080,6 +1086,8 @@ export default function App() {
               src="/sfn_logo.png" 
               alt="SFN Fitness Logo" 
               className="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(116,230,0,0.4)]" 
+              loading="lazy"
+              decoding="async"
             />
             <div className="flex flex-col justify-center leading-none text-left font-sfn-brand" style={{ fontFamily: "'Orbitron', sans-serif" }}>
               <span className="text-sm font-black tracking-[0.14em] text-white uppercase">
